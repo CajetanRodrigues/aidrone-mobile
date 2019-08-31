@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="global-font">
+      Waypoints History
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+  <ion-card>
+    <ion-grid>
+      <ion-row >
+        <ion-item-divider>
+          <ion-col class="table-header global-font">
+            Latitude
+          </ion-col>
+          <ion-col class="table-header global-font">
+            Longitude
+          </ion-col>
+          <ion-col class="table-header global-font">
+            Altitude
+          </ion-col>
+          <ion-col class="table-header global-font">
+            Velocity
+          </ion-col>
+        </ion-item-divider>
+      </ion-row>
+      <ion-row *ngFor="let param of params">
+        <ion-item-divider>
+          <ion-col class="global-font">
+            {{param.latitude}}
+          </ion-col>
+          <ion-col class="global-font">
+            {{param.longitude}}
+          </ion-col >
+          <ion-col class="global-font">
+            {{param.altitude}}
+          </ion-col>
+          <ion-col class="global-font">
+            {{param.velocity}}
+          </ion-col>
+        </ion-item-divider>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+</ion-content>

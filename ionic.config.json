@@ -1,0 +1,7 @@
+{
+  "name": "aiDrone",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
