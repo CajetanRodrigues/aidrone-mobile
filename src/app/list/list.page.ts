@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as Pusher from 'pusher-js';
 
 @Component({
   selector: 'app-list',
@@ -19,16 +20,33 @@ export class ListPage implements OnInit {
     'bluetooth',
     'build'
   ];
-  public params: Array<{ latitude: number; longitude: number; altitude: number; velocity: number }> = [];
+  params = [];
+  latitude: number;
+  longitude: number;
+  altitude: number;
+  velocity: number;
   constructor() {
-    for (let i = 1; i < 11; i++) {
-      this.params.push({
-        latitude: 1*i,
-        longitude: 3*i,
-        altitude: 1*i,
-        velocity: 8
-      });
-    }
+           // Enable pusher logging - don't include this in production
+           Pusher.logToConsole = true;
+
+           const pusher = new Pusher('980f167a4cd9ef7b753c', {
+             cluster: 'ap2',
+             forceTLS: true
+           });
+
+           const channel = pusher.subscribe('my-channel');
+           channel.bind('my-event', (obj) => {
+            this.latitude = obj.latitude;
+            this.longitude = obj.longitude;
+            this.altitude = obj.altitude;
+            this.params.push({
+              latitude: obj.latitude,
+              longitude: obj.longitude,
+              altitude: obj.altitude,
+              velocity: obj.velocity
+            });
+            console.log('Fetched ' + this.latitude + ' ' + this.longitude + ' ' + this.altitude);
+           });
   }
 
   ngOnInit() {

@@ -20,6 +20,11 @@ export class AppComponent {
       title: 'Waypoints History',
       url: '/list',
       icon: 'list'
+    },
+    {
+      title: 'Map View',
+      url: '/map',
+      icon: 'list'
     }
   ];
 
