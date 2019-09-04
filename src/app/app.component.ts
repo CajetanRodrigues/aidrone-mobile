@@ -14,7 +14,7 @@ export class AppComponent {
     {
       title: 'Dashboard',
       url: '/home',
-      icon: 'home'
+      icon: 'today'
     },
     {
       title: 'Waypoints History',
@@ -24,7 +24,12 @@ export class AppComponent {
     {
       title: 'Map View',
       url: '/map',
-      icon: 'list'
+      icon: 'map'
+    },
+    {
+      title: 'Log out',
+      url: '/login',
+      icon: 'log-out'
     }
   ];
 

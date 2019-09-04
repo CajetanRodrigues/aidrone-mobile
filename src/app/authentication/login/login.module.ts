@@ -5,13 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { MapPage } from './map.page';
-import { AgmCoreModule } from '@agm/core';
+import { LoginPage } from './login.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: MapPage
+    component: LoginPage
   }
 ];
 
@@ -20,13 +19,9 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes),
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCWa1dUXh6EPJGRFxm4VPKKH6L4ZDF1F1o',
-      libraries: ['places']
-    }),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule.forChild(routes)
   ],
-  declarations: [MapPage]
+  declarations: [LoginPage]
 })
-export class MapPageModule {}
+export class LoginPageModule {}
