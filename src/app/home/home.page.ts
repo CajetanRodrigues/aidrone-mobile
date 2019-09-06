@@ -28,6 +28,8 @@ export class HomePage {
   autocompleteItems1: any;
   nearbyItems: any = new Array<any>();
   loading: any;
+  lat = 51.678418;
+  lng = 7.809007;
 
   constructor(    public zone: NgZone,
     public loadingCtrl: LoadingController,
@@ -61,7 +63,6 @@ export class HomePage {
        this.autocompleteItems1 = [];
        this.loading = this.loadingCtrl.create();
   }
-
 
   updateSearchResults(){
     if (this.autocomplete.input == '') {
@@ -140,5 +141,11 @@ export class HomePage {
     console.log(JSON.stringify(place.description));
     this.autocomplete1.input = place.description;
     this.autocompleteItems1 = [];
+    this.googlemaps.getGeocoderResults()
+    .subscribe((data: any) => {
+      console.log(data.results);
+      console.log(data.results[0].geometry.location.lat);
+      console.log(data.results[0].geometry.location.lng);
+    });
   }
 }
