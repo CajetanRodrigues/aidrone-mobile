@@ -19,6 +19,9 @@ import { MapPageModule } from './map/map.module';
 import { AutoCompletePage } from './map/auto-complete/auto-complete.page';
 import { AutoCompletePageModule } from './map/auto-complete/auto-complete.module';
 import { AgmCoreModule } from '@agm/core';
+import { GooglemapsService } from './services/googlemaps.service';
+import { DroneService } from './services/drone.service';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -42,7 +45,10 @@ import { AgmCoreModule } from '@agm/core';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    UserService
+    UserService,
+    GooglemapsService,
+    DroneService,
+    LocalNotifications
   ],
   bootstrap: [AppComponent]
 })

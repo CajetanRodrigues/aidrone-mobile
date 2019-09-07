@@ -2,6 +2,8 @@ import { Component, NgZone } from '@angular/core';
 import * as Pusher from 'pusher-js';
 import { LoadingController } from '@ionic/angular';
 import { GooglemapsService } from '../services/googlemaps.service';
+import { DroneService } from '../services/drone.service';
+import { Router } from '@angular/router';
 export interface Param {
   latitude: number;
   longitude: number;
@@ -23,17 +25,26 @@ export class HomePage {
   autocomplete1: any;
   GoogleAutocomplete: any;
   GooglePlaces: any;
-  geocoder: any
+  geocoder: any;
   autocompleteItems: any;
   autocompleteItems1: any;
   nearbyItems: any = new Array<any>();
   loading: any;
   lat = 51.678418;
   lng = 7.809007;
-
+  src = {
+    lat : '',
+    lon : ''
+  };
+  des = {
+    lat : '',
+    lon : ''
+  };
   constructor(    public zone: NgZone,
-    public loadingCtrl: LoadingController,
-    public googlemaps : GooglemapsService) {
+                  public loadingCtrl: LoadingController,
+                  public googlemapsService: GooglemapsService,
+                  public droneService: DroneService,
+                  public router: Router) {
        // Enable pusher logging - don't include this in production
        Pusher.logToConsole = true;
 
@@ -50,7 +61,7 @@ export class HomePage {
         this.velocity = obj.velocity;
        });
        this.geocoder = new google.maps.Geocoder;
-       let elem = document.createElement("div")
+       const elem = document.createElement('div');
        this.GooglePlaces = new google.maps.places.PlacesService(elem);
        this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
        this.autocomplete = {
@@ -64,15 +75,15 @@ export class HomePage {
        this.loading = this.loadingCtrl.create();
   }
 
-  updateSearchResults(){
-    if (this.autocomplete.input == '') {
+  updateSearchResults() {
+    if (this.autocomplete.input === '') {
       this.autocompleteItems = [];
       return;
     }
     this.GoogleAutocomplete.getPlacePredictions({ input: this.autocomplete.input },
       (predictions, status) => {
         this.autocompleteItems = [];
-        if(predictions){
+        if (predictions) {
           this.zone.run(() => {
             predictions.forEach((prediction) => {
               this.autocompleteItems.push(prediction);
@@ -81,15 +92,15 @@ export class HomePage {
         }
     });
   }
-  updateToFieldResults(){
-    if (this.autocomplete1.input == '') {
+  updateToFieldResults() {
+    if (this.autocomplete1.input === '') {
       this.autocompleteItems1 = [];
       return;
     }
     this.GoogleAutocomplete.getPlacePredictions({ input: this.autocomplete1.input },
       (predictions, status) => {
         this.autocompleteItems1 = [];
-        if(predictions){
+        if (predictions) {
           this.zone.run(() => {
             predictions.forEach((prediction) => {
               this.autocompleteItems1.push(prediction);
@@ -99,11 +110,11 @@ export class HomePage {
     });
   }
 
-  selectSearchResult(item){
+  selectSearchResult(item) {
     // this.loading.present();
     this.autocompleteItems = [];
-    this.geocoder.geocode({'placeId': item.place_id}, (results, status) => {
-      if(status === 'OK' && results[0]){
+    this.geocoder.geocode({placeId: item.place_id}, (results, status) => {
+      if (status === 'OK' && results[0]) {
         this.autocompleteItems = [];
         this.GooglePlaces.nearbySearch({
           location: results[0].geometry.location,
@@ -113,39 +124,50 @@ export class HomePage {
         }, (near_places) => {
           this.zone.run(() => {
             this.nearbyItems = [];
-            console.log(this.nearbyItems);
-            for (var i = 0; i < near_places.length; i++) {
+            for (let i = 0; i < near_places.length; i++) {
               this.nearbyItems.push(near_places[i]);
             }
             // this.loading.dismiss();
           });
-        })
+        });
       }
-    })
+    });
   }
   selectFrom(place: any) {
-    this.selectSearchResult(place);
-    console.log(JSON.stringify(place.description));
     this.autocomplete.input = place.description;
     this.autocompleteItems = [];
-    console.log(JSON.stringify(place));
-    this.googlemaps.getGeocoderResults()
+    this.googlemapsService.getGeocoderResults(place.description)
     .subscribe((data: any) => {
-      console.log(data.results);
+      this.src.lat = data.results[0].geometry.location.lat;
+      this.src.lon = data.results[0].geometry.location.lng;
       console.log(data.results[0].geometry.location.lat);
       console.log(data.results[0].geometry.location.lng);
     });
 
   }
   selectTo(place: any) {
-    console.log(JSON.stringify(place.description));
     this.autocomplete1.input = place.description;
     this.autocompleteItems1 = [];
-    this.googlemaps.getGeocoderResults()
+    this.googlemapsService.getGeocoderResults(place.description)
     .subscribe((data: any) => {
-      console.log(data.results);
+      this.des.lat = data.results[0].geometry.location.lat;
+      this.des.lon = data.results[0].geometry.location.lng;
       console.log(data.results[0].geometry.location.lat);
       console.log(data.results[0].geometry.location.lng);
     });
+  }
+  deliver() {
+    const data = {
+      src:  this.src,
+      des: this.des
+    };
+    // this.droneService.deliverPacket(data).subscribe(
+    //   (info: any) => {
+    //     console.log(info);
+    //   }
+    // );
+    // this.googlemapsService.emitGPSObservable(data);
+    this.droneService.gps = data;
+    this.router.navigateByUrl('map');
   }
 }
