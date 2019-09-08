@@ -18,7 +18,7 @@ export class DroneService {
 
   deliverPacket(gps: any): Observable<any> {
     return this.http.post<any>
-      ('', {
+      ('http://192.168.0.104:5000/coordinates', {
         src : {
           lat: gps.src.lat,
           lon: gps.src.lon
@@ -27,6 +27,12 @@ export class DroneService {
           lat: gps.des.lat,
           lon: gps.des.lon
         }
+      }, httpOptions);
+  }
+  emitBeacon(UUID: string): Observable<any> {
+    return this.http.post<any>
+      ('http://192.168.0.104:5000/beacon', {
+        uuid : UUID
       }, httpOptions);
   }
 }

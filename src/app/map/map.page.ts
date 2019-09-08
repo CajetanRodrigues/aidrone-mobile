@@ -4,13 +4,15 @@ import { DroneService } from '../services/drone.service';
 import { GPS } from '../models/GPS';
 import * as Pusher from 'pusher-js';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { IBeacon } from '@ionic-native/ibeacon/ngx';
+import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.page.html',
   styleUrls: ['./map.page.scss'],
 })
-export class MapPage implements OnInit, AfterContentInit, DoCheck {
+export class MapPage implements OnInit, DoCheck {
   image = {
     url: '../assets/icon/drone.png',
     // This marker is 20 pixels wide by 32 pixels high.
@@ -29,9 +31,24 @@ export class MapPage implements OnInit, AfterContentInit, DoCheck {
   flightPath: any;
   gps: GPS;
   pushNotificationFlag = false;
+  vicinity = false;
+  uuid = '';
   constructor(private droneService: DroneService,
-              private localNotifications: LocalNotifications) {
+              private localNotifications: LocalNotifications,
+              private ibeacon: IBeacon,
+              private uniqueDeviceID: UniqueDeviceID) {
     this.gps = droneService.gps;
+
+    this.uniqueDeviceID.get()
+  .then((uuid: any) => {
+    console.log('Device UUId Extraction started successfully');
+    this.droneService.emitBeacon(uuid).subscribe((data) => {
+      console.log('UUID :----- : ' + JSON.stringify(data));
+      this.uuid = uuid;
+    }
+    );
+  })
+  .catch((error: any) => console.log(error));
     Pusher.logToConsole = true;
 
     const pusher = new Pusher('980f167a4cd9ef7b753c', {
@@ -43,14 +60,56 @@ export class MapPage implements OnInit, AfterContentInit, DoCheck {
     channel.bind('my-event', (obj) => {
         this.current.lat = obj.latitude;
         this.current.lng = obj.longitude;
+        this.vicinity = obj.vicinity;
+        if (this.vicinity === true) {
+          console.log('Beacon Emitting started.................');
+          // Request permission to use location on iOS
+          this.ibeacon.requestAlwaysAuthorization();
+// create a new delegate and register it with the native layer
+          const delegate = this.ibeacon.Delegate();
+
+// Subscribe to some of the delegate's event handlers
+          delegate.didRangeBeaconsInRegion()
+  .subscribe(
+    data => console.log('didRangeBeaconsInRegion: ', data),
+    error => console.error()
+  );
+          delegate.didStartMonitoringForRegion()
+  .subscribe(
+    data => console.log('didStartMonitoringForRegion: ', data),
+    error => console.error()
+  );
+          delegate.didEnterRegion()
+  .subscribe(
+    data => {
+      console.log('didEnterRegion: ', data);
+    }
+  );
+
+          const beaconRegion = this.ibeacon.BeaconRegion('deskBeacon', this.uuid);
+
+          this.ibeacon.startMonitoringForRegion(beaconRegion)
+  .then(
+    () => console.log('Native layer received the request to monitoring'),
+    error => console.error('Native layer failed to begin monitoring: ', error)
+  );
+
+
+        }
+
         this.marker = new google.maps.Marker({
-        position: {
-          lat: obj.latitude,
-          lng: obj.longitude
-        },
-        map: this.map,
-        icon: this.image        });
+          position: {
+            lat: obj.latitude,
+            lng: obj.longitude,
+          },
+          map: this.map,
+          icon: this.image,
+          });
+        setTimeout(() => {
+            this.marker.setMap(null);
+          }, 1000);
        });
+      //  marker.setAnimation(null);
   }
 
   ngOnInit(): void {
@@ -60,6 +119,7 @@ export class MapPage implements OnInit, AfterContentInit, DoCheck {
       {lat: this.gps.des.lat, lng: this.gps.des.lon},
     ];
     this.current = { lat: this.gps.src.lat, lng: this.gps.src.lon};
+
     setTimeout(() => {
       console.log('Pushed notification');
       this.localNotifications.schedule({
@@ -69,34 +129,33 @@ export class MapPage implements OnInit, AfterContentInit, DoCheck {
         data: 'Testing notifications!'
       });
     }, 10000);
-  }
 
-  ngAfterContentInit(): void {
     this.map = new google.maps.Map(
-        this.mapElement.nativeElement,
-        {
-          center: {lat: this.gps.src.lat, lng: this.gps.src.lon},
-          zoom: 20
-        });
+      this.mapElement.nativeElement,
+      {
+        center: {lat: this.gps.src.lat, lng: this.gps.src.lon},
+        zoom: 20
+      });
     this.flightPath = new google.maps.Polyline({
-      path: this.flightPlanCoordinates,
-      geodesic: true,
-      strokeColor: '#00ff2a',
-      strokeOpacity: 1.0,
-      strokeWeight: 2
-    });
+    path: this.flightPlanCoordinates,
+    geodesic: true,
+    strokeColor: '#00ff2a',
+    strokeOpacity: 1.0,
+    strokeWeight: 2
+  });
     this.marker = new google.maps.Marker({position: {
-      lat: this.gps.src.lat,
-      lng: this.gps.src.lon
-    }, map: this.map, icon: '../assets/icon/amazon.png',
-    animation: google.maps.Animation.BOUNCE});
+    lat: this.gps.src.lat,
+    lng: this.gps.src.lon
+  }, map: this.map, icon: '../assets/icon/amazon.png',
+  animation: google.maps.Animation.BOUNCE});
     this.marker = new google.maps.Marker({position: {
-      lat: this.gps.des.lat,
-      lng: this.gps.des.lon
-    }, map: this.map, icon: '../assets/icon/user.png',
-    animation: google.maps.Animation.BOUNCE});
+    lat: this.gps.des.lat,
+    lng: this.gps.des.lon
+  }, map: this.map, icon: '../assets/icon/user.png',
+  animation: google.maps.Animation.BOUNCE});
     this.flightPath.setMap(this.map);
   }
+
   ngDoCheck() {
     if (this.pushNotificationFlag) {
       this.localNotifications.schedule({

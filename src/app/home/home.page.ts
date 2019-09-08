@@ -16,10 +16,16 @@ export interface Param {
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  paramShow = false;
   latitude = 0;
   longitude = 0;
   altitude = 0;
   velocity = 0;
+  clientdist: any;
+  warehousedist: any;
+  vicinity: any;
+  clienttime: any;
+  warehousetime: any;
   params: Param[] = [];
   autocomplete: any;
   autocomplete1: any;
@@ -59,6 +65,11 @@ export class HomePage {
         this.longitude = obj.longitude;
         this.altitude = obj.altitude;
         this.velocity = obj.velocity;
+        this.vicinity = obj.vicinity;
+        this.clientdist = obj.clientdist;
+        this.warehousedist = obj.warehousedist;
+        this.clienttime = obj.clienttime;
+        this.warehousetime = obj.warehousetime;
        });
        this.geocoder = new google.maps.Geocoder;
        const elem = document.createElement('div');
@@ -157,15 +168,16 @@ export class HomePage {
     });
   }
   deliver() {
+    this.paramShow = true;
     const data = {
       src:  this.src,
       des: this.des
     };
-    // this.droneService.deliverPacket(data).subscribe(
-    //   (info: any) => {
-    //     console.log(info);
-    //   }
-    // );
+    this.droneService.deliverPacket(data).subscribe(
+      (info: any) => {
+        console.log(info);
+      }
+    );
     // this.googlemapsService.emitGPSObservable(data);
     this.droneService.gps = data;
     this.router.navigateByUrl('map');

@@ -16,16 +16,15 @@ import { LoginPageModule } from './authentication/login/login.module';
 import { ListPageModule } from './list/list.module';
 import { SignupPageModule } from './authentication/signup/signup.module';
 import { MapPageModule } from './map/map.module';
-import { AutoCompletePage } from './map/auto-complete/auto-complete.page';
-import { AutoCompletePageModule } from './map/auto-complete/auto-complete.module';
-import { AgmCoreModule } from '@agm/core';
 import { GooglemapsService } from './services/googlemaps.service';
 import { DroneService } from './services/drone.service';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { IBeacon } from '@ionic-native/ibeacon/ngx';
+import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 
 @NgModule({
   declarations: [AppComponent],
-  entryComponents: [AutoCompletePage],
+  entryComponents: [],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
@@ -38,8 +37,6 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
     SignupPageModule,
     ListPageModule,
     MapPageModule,
-    AutoCompletePageModule,
-
   ],
   providers: [
     StatusBar,
@@ -48,7 +45,9 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
     UserService,
     GooglemapsService,
     DroneService,
-    LocalNotifications
+    LocalNotifications,
+    IBeacon,
+    UniqueDeviceID
   ],
   bootstrap: [AppComponent]
 })
