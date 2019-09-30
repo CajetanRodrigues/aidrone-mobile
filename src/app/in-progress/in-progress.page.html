@@ -1,0 +1,86 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title class="global-font">
+            In Progress
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-card *ngIf="one">
+        <ion-item>
+            <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+            <ion-label>Ready to boot.
+            </ion-label>
+            <ion-button fill="outline" slot="end">Close</ion-button>
+        </ion-item>
+    </ion-card>
+    <ion-card *ngIf="two">
+        <ion-item>
+            <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+            <ion-label>Started model quad at 19.044503,72.820451,0,180 at speed 1.0
+            </ion-label>
+            <ion-button fill="outline" slot="end">Close</ion-button>
+        </ion-item>
+    </ion-card>
+    <ion-card *ngIf="three">
+        <ion-item>
+            <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+            <ion-label>Starting sketch 'ArduCopter'
+
+            </ion-label>
+            <ion-button fill="outline" slot="end">Close</ion-button>
+        </ion-item>
+    </ion-card>
+    <ion-card *ngIf="four">
+        <ion-item>
+            <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+            <ion-label>Starting SITL input
+            </ion-label>
+            <ion-button fill="outline" slot="end">Close</ion-button>
+        </ion-item>
+    </ion-card>
+    <ion-card *ngIf="five">
+        <ion-item>
+            <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+            <ion-label>
+                <p> CRITICAL:autopilot:APM:Copter V3.3 (d6053245)</p>
+                <p>CRITICAL:autopilot:Frame: QUAD</p>
+                <p>CRITICAL:autopilot:Calibrating barometer</p>
+                <p>CRITICAL:autopilot:Initialising APM...</p>
+            </ion-label>
+            <ion-button fill="outline" slot="end">Close</ion-button>
+        </ion-item>
+    </ion-card>
+    <ion-card *ngIf="six">
+        <ion-item>
+            <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+            <ion-label>
+                <p>CRITICAL:autopilot:barometer calibration complete</p>
+                <p>CRITICAL:autopilot:GROUND START</p>
+                <p>CRITICAL:autopilot:APM:Copter V3.3 (d6053245)</p>
+                <p>CRITICAL:autopilot:APM:Copter V3.3 (d6053245)</p>
+                <p>CRITICAL:autopilot:Frame: QUAD</p>
+                <p>WARNING:dronekit:Link timeout, no heartbeat in last 5 seconds</p>
+
+
+
+
+
+
+            </ion-label>
+            <ion-button fill="outline" slot="end">Close</ion-button>
+        </ion-item>
+    </ion-card>
+    <ion-card *ngIf="seven">
+        <ion-item>
+            <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+            <ion-label>Connect to MongoDB Cluster Created Database
+            </ion-label>
+            <ion-button fill="outline" slot="end">Close</ion-button>
+        </ion-item>
+    </ion-card>
+    <ion-spinner *ngIf="spinner" name="crescent"></ion-spinner>
+</ion-content>

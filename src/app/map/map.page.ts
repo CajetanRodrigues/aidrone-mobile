@@ -27,7 +27,16 @@ export class MapPage implements OnInit, DoCheck {
 
   current = {lat: 0.0, lng: 0.0};
   marker: any;
-  flightPlanCoordinates = [];
+  flightPlanCoordinates = [
+    {
+      lat : 19.044497,
+      lng : 72.8204535
+    },
+   {
+      lat : 19.046998,
+      lng : 72.81965559999999
+    }
+  ];
   flightPath: any;
   gps: GPS;
   pushNotificationFlag = false;
@@ -38,7 +47,6 @@ export class MapPage implements OnInit, DoCheck {
               private ibeacon: IBeacon,
               private uniqueDeviceID: UniqueDeviceID) {
     this.gps = droneService.gps;
-
     this.uniqueDeviceID.get()
   .then((uuid: any) => {
     console.log('Device UUId Extraction started successfully');
@@ -115,10 +123,10 @@ export class MapPage implements OnInit, DoCheck {
   ngOnInit(): void {
     console.log(JSON.stringify(this.droneService.gps));
     this.flightPlanCoordinates = [
-      {lat: this.gps.src.lat, lng: this.gps.src.lon},
-      {lat: this.gps.des.lat, lng: this.gps.des.lon},
+      {lat: this.gps.src.lat, lng: this.gps.src.lng},
+      {lat: this.gps.des.lat, lng: this.gps.des.lng},
     ];
-    this.current = { lat: this.gps.src.lat, lng: this.gps.src.lon};
+    this.current = { lat: this.gps.src.lat, lng: this.gps.src.lng};
 
     setTimeout(() => {
       console.log('Pushed notification');
@@ -133,7 +141,7 @@ export class MapPage implements OnInit, DoCheck {
     this.map = new google.maps.Map(
       this.mapElement.nativeElement,
       {
-        center: {lat: this.gps.src.lat, lng: this.gps.src.lon},
+        center: {lat: this.gps.src.lat, lng: this.gps.src.lng},
         zoom: 20
       });
     this.flightPath = new google.maps.Polyline({
@@ -145,12 +153,12 @@ export class MapPage implements OnInit, DoCheck {
   });
     this.marker = new google.maps.Marker({position: {
     lat: this.gps.src.lat,
-    lng: this.gps.src.lon
+    lng: this.gps.src.lng
   }, map: this.map, icon: '../assets/icon/amazon.png',
   animation: google.maps.Animation.BOUNCE});
     this.marker = new google.maps.Marker({position: {
     lat: this.gps.des.lat,
-    lng: this.gps.des.lon
+    lng: this.gps.des.lng
   }, map: this.map, icon: '../assets/icon/user.png',
   animation: google.maps.Animation.BOUNCE});
     this.flightPath.setMap(this.map);

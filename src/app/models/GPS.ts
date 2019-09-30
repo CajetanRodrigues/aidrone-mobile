@@ -1,10 +1,10 @@
 export interface GPS {
     src: {
         lat: any;
-        lon: any;
+        lng: any;
     };
     des: {
         lat: any;
-        lon: any;
+        lng: any;
     };
 }

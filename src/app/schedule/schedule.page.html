@@ -1,0 +1,92 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title class="global-font">
+            Schedule
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+        <ion-card *ngFor="let drone of drones">
+            <ion-item>
+                <ion-avatar slot="start">
+                    <img src="../../assets/drones/alpha.jpg">
+                </ion-avatar>
+                <ion-label>Drone <b>{{drone.title}}</b></ion-label>
+                <ion-button fill="outline" slot="end" color="danger">Remove</ion-button>
+            </ion-item>
+
+            <ion-card-content>
+                <span class="dot-green"></span>
+                <ion-label>{{drone.health}}</ion-label>
+
+            </ion-card-content>
+        </ion-card>
+
+        <ion-chip>
+            <ion-icon name="bug" color="danger"></ion-icon>
+            <ion-label>The packets exceed the drone carrying capacity</ion-label>
+
+            <ion-icon name="close"></ion-icon>
+        </ion-chip>
+        <ion-chip>
+            <ion-label> <b>  Note: </b> Add a <span (click)="presentModal()" style="color: blue">drone</span> to swarm or remove some products</ion-label>
+        </ion-chip>
+
+        <div class="timeline" style="background-color: greenyellow">
+            <div class="container left">
+                <div class="content">
+                    <h2>Vaccine</h2>
+                    <ion-card>
+                        <ion-item>
+                            <ion-avatar slot="start">
+                                <img src="../../assets/inventory/vaccine.jpg">
+                            </ion-avatar>
+                            <ion-label> Vaccine </ion-label>
+
+                            <ion-item slot="end">
+
+                                <ion-label>Quantity : 2</ion-label>
+
+                            </ion-item>
+                            <ion-button color="danger" slot="end" fill="outline">
+                                <ion-icon name="remove"></ion-icon>
+                                Remove
+                            </ion-button>
+                        </ion-item>
+                    </ion-card>
+                </div>
+            </div>
+            <div class="container right">
+                <div class="content">
+                    <h2>Tranquilizer</h2>
+                    <ion-card>
+                        <ion-item>
+                            <ion-avatar slot="start">
+                                <img src="../../assets/inventory/tranquilizer.jpg">
+                            </ion-avatar>
+                            <ion-label> Tranquilizers </ion-label>
+
+                            <ion-item slot="end">
+
+                                <ion-label>Quantity : 1</ion-label>
+
+                            </ion-item>
+                            <ion-button color="danger" slot="end" fill="outline">
+                                <ion-icon name="remove"></ion-icon>
+                                Remove
+                            </ion-button>
+                        </ion-item>
+                    </ion-card>
+                </div>
+            </div>
+
+        </div>
+
+        <ion-button (click)="goToMap()" expand="full">Deliver</ion-button>
+    </ion-card>
+</ion-content>

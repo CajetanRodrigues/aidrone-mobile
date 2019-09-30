@@ -1,0 +1,104 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title class="global-font">
+            Drones
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-card>
+        <ion-item>
+            <ion-avatar slot="start">
+                <img src="../../assets/drones/alpha.jpg">
+            </ion-avatar>
+            <ion-label>Drone <b>Alpha</b></ion-label>
+            <ion-chip>
+                <ion-icon name="fitness" color="primary"></ion-icon>
+                <ion-label>Capacity : 1 kg
+                </ion-label>
+            </ion-chip>
+
+            <ion-button *ngIf="droneModalOpened" (click)="dismiss()" fill="outline" slot="end">Select</ion-button>
+
+            <ion-button *ngIf="!droneModalOpened" (click)="goToInventory()" fill="outline" slot="end">Select</ion-button>
+        </ion-item>
+
+        <ion-card-content>
+            <span class="dot-green"></span>
+            <ion-label>Healthy</ion-label>e
+
+
+            <ion-label class="float-right" slot="end"><span class="dot-red"></span>Job in Queue</ion-label>
+
+        </ion-card-content>
+    </ion-card>
+    <ion-card>
+        <ion-item>
+            <ion-avatar slot="start">
+                <img src="../../assets/drones/beta.jpg">
+            </ion-avatar>
+            <ion-label>Drone <b>Beta</b></ion-label>
+            <ion-chip>
+                <ion-icon name="fitness" color="primary"></ion-icon>
+                <ion-label>Capacity : 1 kg
+                </ion-label>
+            </ion-chip>
+            <ion-button fill="outline" slot="end">Select</ion-button>
+        </ion-item>
+
+        <ion-card-content>
+            <span class="dot-green"></span>
+            <ion-label>Healthy</ion-label>
+
+            <ion-label class="float-right" slot="end"><span class="dot-red"></span>Job in Queue</ion-label>
+
+        </ion-card-content>
+    </ion-card>
+    <ion-card>
+        <ion-item>
+            <ion-avatar slot="start">
+                <img src="../../assets/drones/gamma.jpg">
+            </ion-avatar>
+            <ion-label>Drone <b>Gamma</b></ion-label>
+            <ion-chip>
+                <ion-icon name="fitness" color="primary"></ion-icon>
+                <ion-label>Capacity : 1 kg
+                </ion-label>
+            </ion-chip>
+            <ion-button fill="outline" slot="end">Select</ion-button>
+        </ion-item>
+
+        <ion-card-content>
+            <span class="dot-red"></span>
+            <ion-label>UnHealthy</ion-label>
+
+            <ion-label class="float-right" slot="end"><span class="dot-orange"></span>Maintainence</ion-label>
+
+        </ion-card-content>
+    </ion-card>
+    <ion-card>
+        <ion-item>
+            <ion-avatar slot="start">
+                <img src="../../assets/drones/delta.jpg">
+            </ion-avatar>
+            <ion-label>Drone <b>Delta</b></ion-label>
+            <ion-chip>
+                <ion-icon name="fitness" color="primary"></ion-icon>
+                <ion-label>Capacity : 1 kg
+                </ion-label>
+            </ion-chip>
+            <ion-button fill="outline" slot="end">Select</ion-button>
+        </ion-item>
+
+        <ion-card-content>
+            <span class="dot-green"></span>
+            <ion-label>Healthy</ion-label>
+
+            <ion-label class="float-right" slot="end"><span class="dot-green"></span>Available</ion-label>
+
+        </ion-card-content>
+    </ion-card>
+</ion-content>

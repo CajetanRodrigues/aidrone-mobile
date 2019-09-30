@@ -5,6 +5,11 @@ import { LoginPage } from './authentication/login/login.page';
 import { SignupPage } from './authentication/signup/signup.page';
 import { MapPage } from './map/map.page';
 import { ListPage } from './list/list.page';
+import { MissionsPage } from './missions/missions.page';
+import { DronesPage } from './drones/drones.page';
+import { InventoryPage } from './inventory/inventory.page';
+import { SchedulePage } from './schedule/schedule.page';
+import { InProgressPage } from './in-progress/in-progress.page';
 
 const routes: Routes = [
   {
@@ -29,6 +34,16 @@ const routes: Routes = [
   { path: 'signup',
     component: SignupPage
   },
+  { path: 'missions',
+    component: MissionsPage },
+  { path: 'drones',
+    component: DronesPage },
+  { path: 'inventory',
+    component: InventoryPage },
+  { path: 'schedule',
+    component: SchedulePage },
+  { path: 'in-progress',
+    component: InProgressPage },
 ];
 
 @NgModule({

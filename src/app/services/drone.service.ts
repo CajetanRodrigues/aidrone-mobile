@@ -12,13 +12,24 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class DroneService {
-
+  public droneModalOpened = false;
   public gps: GPS;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.gps = {
+      src : {
+        lat : 19.044497,
+        lng : 72.8204535
+      },
+      des : {
+        lat : 19.046998,
+        lng : 72.81965559999999
+      }
+    };
+   }
 
   deliverPacket(gps: any): Observable<any> {
     return this.http.post<any>
-      ('http://192.168.0.104:5000/coordinates', {
+      ('http://127.0.0.1:5000/coordinates', {
         src : {
           lat: gps.src.lat,
           lon: gps.src.lon
@@ -31,7 +42,7 @@ export class DroneService {
   }
   emitBeacon(UUID: string): Observable<any> {
     return this.http.post<any>
-      ('http://192.168.0.104:5000/beacon', {
+      ('http://127.0.0.1:5000/beacon', {
         uuid : UUID
       }, httpOptions);
   }

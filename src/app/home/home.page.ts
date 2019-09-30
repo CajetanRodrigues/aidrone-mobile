@@ -39,12 +39,12 @@ export class HomePage {
   lat = 51.678418;
   lng = 7.809007;
   src = {
-    lat : '',
-    lon : ''
+    lat : 19.044497,
+    lng : 72.8204535
   };
   des = {
-    lat : '',
-    lon : ''
+    lat : 19.046998,
+    lng : 72.81965559999999
   };
   constructor(    public zone: NgZone,
                   public loadingCtrl: LoadingController,
@@ -84,6 +84,7 @@ export class HomePage {
        this.autocompleteItems = [];
        this.autocompleteItems1 = [];
        this.loading = this.loadingCtrl.create();
+
   }
 
   updateSearchResults() {
@@ -150,7 +151,7 @@ export class HomePage {
     this.googlemapsService.getGeocoderResults(place.description)
     .subscribe((data: any) => {
       this.src.lat = data.results[0].geometry.location.lat;
-      this.src.lon = data.results[0].geometry.location.lng;
+      this.src.lng = data.results[0].geometry.location.lng;
       console.log(data.results[0].geometry.location.lat);
       console.log(data.results[0].geometry.location.lng);
     });
@@ -162,7 +163,7 @@ export class HomePage {
     this.googlemapsService.getGeocoderResults(place.description)
     .subscribe((data: any) => {
       this.des.lat = data.results[0].geometry.location.lat;
-      this.des.lon = data.results[0].geometry.location.lng;
+      this.des.lng = data.results[0].geometry.location.lng;
       console.log(data.results[0].geometry.location.lat);
       console.log(data.results[0].geometry.location.lng);
     });
@@ -173,13 +174,14 @@ export class HomePage {
       src:  this.src,
       des: this.des
     };
-    this.droneService.deliverPacket(data).subscribe(
-      (info: any) => {
-        console.log(info);
-      }
-    );
+    // console.log(data);
+    // this.droneService.deliverPacket(data).subscribe(
+    //   (info: any) => {
+    //     console.log(info);
+    //   }
+    // );
     // this.googlemapsService.emitGPSObservable(data);
     this.droneService.gps = data;
-    this.router.navigateByUrl('map');
+    this.router.navigateByUrl('drones');
   }
 }

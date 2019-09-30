@@ -17,20 +17,41 @@ export class AppComponent {
       icon: 'today'
     },
     {
-      title: 'Waypoints History',
-      url: '/list',
-      icon: 'list'
-    },
-    {
       title: 'Map View',
       url: '/map',
       icon: 'map'
+    },
+    {
+      title: 'Missions',
+      url: '/missions',
+      icon: 'airplane'
+    },
+    {
+      title: 'Drones',
+      url: '/drones',
+      icon: 'nuclear'
+    },
+    {
+      title: 'Inventory',
+      url: '/inventory',
+      icon: 'cube'
+    },
+    {
+      title: 'Schedule',
+      url: '/schedule',
+      icon: 'construct'
+    },
+    {
+      title: 'Final Checkout',
+      url: '/in-progress',
+      icon: 'aperture'
     },
     {
       title: 'Log out',
       url: '/login',
       icon: 'log-out'
     }
+
   ];
 
   constructor(

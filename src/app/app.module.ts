@@ -21,10 +21,17 @@ import { DroneService } from './services/drone.service';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { IBeacon } from '@ionic-native/ibeacon/ngx';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
+import { MissionsPageModule } from './missions/missions.module';
+import { DronesPageModule } from './drones/drones.module';
+import { InventoryPageModule } from './inventory/inventory.module';
+import { SchedulePageModule } from './schedule/schedule.module';
+import { AppService } from './app.service';
+import { DronesPage } from './drones/drones.page';
+import { InProgressPageModule } from './in-progress/in-progress.module';
 
 @NgModule({
   declarations: [AppComponent],
-  entryComponents: [],
+  entryComponents: [DronesPage],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
@@ -37,6 +44,11 @@ import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
     SignupPageModule,
     ListPageModule,
     MapPageModule,
+    MissionsPageModule,
+    DronesPageModule,
+    InventoryPageModule,
+    SchedulePageModule,
+    InProgressPageModule
   ],
   providers: [
     StatusBar,
@@ -47,8 +59,9 @@ import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
     DroneService,
     LocalNotifications,
     IBeacon,
-    UniqueDeviceID
+    UniqueDeviceID,
+    AppService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
