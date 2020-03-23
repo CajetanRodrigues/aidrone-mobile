@@ -3,6 +3,11 @@ import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import * as firebase from 'firebase/app';
+import { firebaseConfig } from './credentials';
+import { Inventory } from './models/Inventory';
+import { Drone } from './models/Drone';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -17,34 +22,9 @@ export class AppComponent {
       icon: 'today'
     },
     {
-      title: 'Map View',
-      url: '/map',
-      icon: 'map'
-    },
-    {
       title: 'Missions',
       url: '/missions',
       icon: 'airplane'
-    },
-    {
-      title: 'Drones',
-      url: '/drones',
-      icon: 'nuclear'
-    },
-    {
-      title: 'Inventory',
-      url: '/inventory',
-      icon: 'cube'
-    },
-    {
-      title: 'Schedule',
-      url: '/schedule',
-      icon: 'construct'
-    },
-    {
-      title: 'Final Checkout',
-      url: '/in-progress',
-      icon: 'aperture'
     },
     {
       title: 'Log out',
@@ -60,6 +40,7 @@ export class AppComponent {
     private statusBar: StatusBar
   ) {
     this.initializeApp();
+    firebase.initializeApp(firebaseConfig);
   }
 
   initializeApp() {

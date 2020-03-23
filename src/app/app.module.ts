@@ -28,10 +28,12 @@ import { SchedulePageModule } from './schedule/schedule.module';
 import { AppService } from './app.service';
 import { DronesPage } from './drones/drones.page';
 import { InProgressPageModule } from './in-progress/in-progress.module';
+import { DronesPageModal } from './temporary-ui/drones/drones.page';
+import { DronesPageModalModule } from './temporary-ui/drones/drones.module';
 
 @NgModule({
   declarations: [AppComponent],
-  entryComponents: [DronesPage],
+  entryComponents: [DronesPage, DronesPageModal],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
@@ -48,7 +50,8 @@ import { InProgressPageModule } from './in-progress/in-progress.module';
     DronesPageModule,
     InventoryPageModule,
     SchedulePageModule,
-    InProgressPageModule
+    InProgressPageModule,
+    DronesPageModalModule
   ],
   providers: [
     StatusBar,

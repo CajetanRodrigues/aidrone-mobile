@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { DroneService } from '../services/drone.service';
+import { Drone } from '../models/Drone';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-drones',
@@ -10,15 +12,26 @@ import { DroneService } from '../services/drone.service';
 })
 export class DronesPage implements OnInit {
   droneModalOpened = false;
+  droneList: Drone[];
   constructor(private router: Router,
               public modalController: ModalController,
-              private droneService: DroneService) {
+              private droneService: DroneService,
+              public appService: AppService) {
                 this.droneModalOpened = this.droneService.droneModalOpened;
+                this.droneList = this.appService.droneList;
                }
 
   ngOnInit() {
   }
-  goToInventory() {
+  goToInventory(drone: Drone) {
+
+    // add drone to schedule object
+    this.appService.schedule.push({
+      name: drone.name,
+      availability: drone.availability,
+      capacity: drone.capacity
+    });
+    // direct to inventory page
     this.router.navigateByUrl('inventory');
   }
   dismiss() {

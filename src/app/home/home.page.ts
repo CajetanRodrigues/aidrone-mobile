@@ -1,9 +1,10 @@
 import { Component, NgZone } from '@angular/core';
-import * as Pusher from 'pusher-js';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { GooglemapsService } from '../services/googlemaps.service';
 import { DroneService } from '../services/drone.service';
 import { Router } from '@angular/router';
+import { AppService } from '../app.service';
+
 export interface Param {
   latitude: number;
   longitude: number;
@@ -16,16 +17,7 @@ export interface Param {
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  paramShow = false;
-  latitude = 0;
-  longitude = 0;
-  altitude = 0;
-  velocity = 0;
-  clientdist: any;
-  warehousedist: any;
-  vicinity: any;
-  clienttime: any;
-  warehousetime: any;
+
   params: Param[] = [];
   autocomplete: any;
   autocomplete1: any;
@@ -50,27 +42,10 @@ export class HomePage {
                   public loadingCtrl: LoadingController,
                   public googlemapsService: GooglemapsService,
                   public droneService: DroneService,
-                  public router: Router) {
-       // Enable pusher logging - don't include this in production
-       Pusher.logToConsole = true;
+                  public router: Router,
+                  public modalController: ModalController,
+                  public appService: AppService) {
 
-       const pusher = new Pusher('980f167a4cd9ef7b753c', {
-         cluster: 'ap2',
-         forceTLS: true
-       });
-
-       const channel = pusher.subscribe('my-channel');
-       channel.bind('my-event', (obj) => {
-        this.latitude = obj.latitude;
-        this.longitude = obj.longitude;
-        this.altitude = obj.altitude;
-        this.velocity = obj.velocity;
-        this.vicinity = obj.vicinity;
-        this.clientdist = obj.clientdist;
-        this.warehousedist = obj.warehousedist;
-        this.clienttime = obj.clienttime;
-        this.warehousetime = obj.warehousetime;
-       });
        this.geocoder = new google.maps.Geocoder;
        const elem = document.createElement('div');
        this.GooglePlaces = new google.maps.places.PlacesService(elem);
@@ -86,7 +61,6 @@ export class HomePage {
        this.loading = this.loadingCtrl.create();
 
   }
-
   updateSearchResults() {
     if (this.autocomplete.input === '') {
       this.autocompleteItems = [];
@@ -169,7 +143,8 @@ export class HomePage {
     });
   }
   deliver() {
-    this.paramShow = true;
+    this.appService.from = this.autocomplete.input;
+    this.appService.to = this.autocomplete1.input;
     const data = {
       src:  this.src,
       des: this.des
@@ -182,6 +157,6 @@ export class HomePage {
     // );
     // this.googlemapsService.emitGPSObservable(data);
     this.droneService.gps = data;
-    this.router.navigateByUrl('drones');
+    this.router.navigateByUrl('inventory');
   }
 }

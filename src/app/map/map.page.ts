@@ -154,7 +154,7 @@ export class MapPage implements OnInit, DoCheck {
     this.marker = new google.maps.Marker({position: {
     lat: this.gps.src.lat,
     lng: this.gps.src.lng
-  }, map: this.map, icon: '../assets/icon/amazon.png',
+  }, map: this.map, icon: '../assets/icon/drone.png',
   animation: google.maps.Animation.BOUNCE});
     this.marker = new google.maps.Marker({position: {
     lat: this.gps.des.lat,

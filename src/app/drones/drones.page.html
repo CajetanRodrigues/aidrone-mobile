@@ -9,95 +9,37 @@
     </ion-toolbar>
 </ion-header>
 <ion-content>
-    <ion-card>
+    <ion-card *ngFor="let drone of droneList">
         <ion-item>
             <ion-avatar slot="start">
                 <img src="../../assets/drones/alpha.jpg">
             </ion-avatar>
-            <ion-label>Drone <b>Alpha</b></ion-label>
+            <ion-label>Drone <b>{{drone.name}}</b></ion-label>
             <ion-chip>
                 <ion-icon name="fitness" color="primary"></ion-icon>
-                <ion-label>Capacity : 1 kg
+                <ion-label>Capacity : {{drone.capacity}} kg
                 </ion-label>
             </ion-chip>
-
-            <ion-button *ngIf="droneModalOpened" (click)="dismiss()" fill="outline" slot="end">Select</ion-button>
-
-            <ion-button *ngIf="!droneModalOpened" (click)="goToInventory()" fill="outline" slot="end">Select</ion-button>
+            <ion-button *ngIf="!droneModalOpened" (click)="goToInventory(drone)" fill="outline" slot="end">Select</ion-button>
         </ion-item>
 
         <ion-card-content>
-            <span class="dot-green"></span>
-            <ion-label>Healthy</ion-label>e
 
 
-            <ion-label class="float-right" slot="end"><span class="dot-red"></span>Job in Queue</ion-label>
+            <ion-label class="float-right" slot="end">
 
-        </ion-card-content>
-    </ion-card>
-    <ion-card>
-        <ion-item>
-            <ion-avatar slot="start">
-                <img src="../../assets/drones/beta.jpg">
-            </ion-avatar>
-            <ion-label>Drone <b>Beta</b></ion-label>
-            <ion-chip>
-                <ion-icon name="fitness" color="primary"></ion-icon>
-                <ion-label>Capacity : 1 kg
-                </ion-label>
-            </ion-chip>
-            <ion-button fill="outline" slot="end">Select</ion-button>
-        </ion-item>
 
-        <ion-card-content>
-            <span class="dot-green"></span>
-            <ion-label>Healthy</ion-label>
 
-            <ion-label class="float-right" slot="end"><span class="dot-red"></span>Job in Queue</ion-label>
+                <div *ngIf="drone.availability">
+                    <span class="dot-green"></span> Available
+                </div>
+                <div *ngIf="!drone.availability">
+                    <span class="dot-red"></span> Unavailable
+                </div>
 
-        </ion-card-content>
-    </ion-card>
-    <ion-card>
-        <ion-item>
-            <ion-avatar slot="start">
-                <img src="../../assets/drones/gamma.jpg">
-            </ion-avatar>
-            <ion-label>Drone <b>Gamma</b></ion-label>
-            <ion-chip>
-                <ion-icon name="fitness" color="primary"></ion-icon>
-                <ion-label>Capacity : 1 kg
-                </ion-label>
-            </ion-chip>
-            <ion-button fill="outline" slot="end">Select</ion-button>
-        </ion-item>
 
-        <ion-card-content>
-            <span class="dot-red"></span>
-            <ion-label>UnHealthy</ion-label>
 
-            <ion-label class="float-right" slot="end"><span class="dot-orange"></span>Maintainence</ion-label>
-
-        </ion-card-content>
-    </ion-card>
-    <ion-card>
-        <ion-item>
-            <ion-avatar slot="start">
-                <img src="../../assets/drones/delta.jpg">
-            </ion-avatar>
-            <ion-label>Drone <b>Delta</b></ion-label>
-            <ion-chip>
-                <ion-icon name="fitness" color="primary"></ion-icon>
-                <ion-label>Capacity : 1 kg
-                </ion-label>
-            </ion-chip>
-            <ion-button fill="outline" slot="end">Select</ion-button>
-        </ion-item>
-
-        <ion-card-content>
-            <span class="dot-green"></span>
-            <ion-label>Healthy</ion-label>
-
-            <ion-label class="float-right" slot="end"><span class="dot-green"></span>Available</ion-label>
+            </ion-label>
 
         </ion-card-content>
     </ion-card>

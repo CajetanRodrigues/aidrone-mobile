@@ -10,6 +10,7 @@ import { DronesPage } from './drones/drones.page';
 import { InventoryPage } from './inventory/inventory.page';
 import { SchedulePage } from './schedule/schedule.page';
 import { InProgressPage } from './in-progress/in-progress.page';
+import { DronesPageModal } from './temporary-ui/drones/drones.page';
 
 const routes: Routes = [
   {
@@ -44,6 +45,11 @@ const routes: Routes = [
     component: SchedulePage },
   { path: 'in-progress',
     component: InProgressPage },
+  { path: 'track',
+    loadChildren: './track/track.module#TrackPageModule' },
+  { path: 'drones-modal',
+    component: DronesPageModal },
+  { path: 'flight-parameters', loadChildren: './temporary-ui/flight-parameters/flight-parameters.module#FlightParametersPageModule' },
 ];
 
 @NgModule({

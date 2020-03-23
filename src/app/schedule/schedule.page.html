@@ -11,82 +11,95 @@
 
 <ion-content>
     <ion-card>
-        <ion-card *ngFor="let drone of drones">
+        <ion-card>
             <ion-item>
                 <ion-avatar slot="start">
                     <img src="../../assets/drones/alpha.jpg">
                 </ion-avatar>
-                <ion-label>Drone <b>{{drone.title}}</b></ion-label>
-                <ion-button fill="outline" slot="end" color="danger">Remove</ion-button>
+                <ion-label>Drone <b>{{drone.name}}</b></ion-label>
+                <ion-chip>
+                    <ion-icon name="fitness" color="primary"></ion-icon>
+                    <ion-label>Capacity : {{drone.capacity}} kg
+                    </ion-label>
+                </ion-chip>
+                <ion-button color="danger" slot="end" fill="outline">
+                    <ion-icon name="remove"></ion-icon>
+                    Remove
+                </ion-button>
             </ion-item>
-
             <ion-card-content>
-                <span class="dot-green"></span>
-                <ion-label>{{drone.health}}</ion-label>
-
+                <ion-label class="float-right" slot="end"><span class="dot-red"></span>{{drone.availability}}</ion-label>
             </ion-card-content>
         </ion-card>
 
-        <ion-chip>
-            <ion-icon name="bug" color="danger"></ion-icon>
-            <ion-label>The packets exceed the drone carrying capacity</ion-label>
 
-            <ion-icon name="close"></ion-icon>
-        </ion-chip>
-        <ion-chip>
-            <ion-label> <b>  Note: </b> Add a <span (click)="presentModal()" style="color: blue">drone</span> to swarm or remove some products</ion-label>
-        </ion-chip>
 
-        <div class="timeline" style="background-color: greenyellow">
-            <div class="container left">
-                <div class="content">
-                    <h2>Vaccine</h2>
-                    <ion-card>
-                        <ion-item>
-                            <ion-avatar slot="start">
-                                <img src="../../assets/inventory/vaccine.jpg">
-                            </ion-avatar>
-                            <ion-label> Vaccine </ion-label>
+        <ion-button [disabled]="!weightStatus" (click)="goToMap()" expand="full">Deliver</ion-button>
+    </ion-card>
+    <ion-card>
+        <ion-card-content>
+            <ion-item>
+                <ion-label>Total Weight of Items = {{totalItemWeight}} kg</ion-label>
+            </ion-item>
 
-                            <ion-item slot="end">
-
-                                <ion-label>Quantity : 2</ion-label>
-
-                            </ion-item>
-                            <ion-button color="danger" slot="end" fill="outline">
-                                <ion-icon name="remove"></ion-icon>
-                                Remove
-                            </ion-button>
-                        </ion-item>
-                    </ion-card>
-                </div>
+            <ion-item>
+                <ion-label>Weight Capacity of drone/drones = {{droneWeight}} kg</ion-label>
+            </ion-item>
+            <div *ngIf="!weightStatus">
+                <ion-chip>
+                    <ion-icon name="bug" color="danger"></ion-icon>
+                    <ion-label>The packets exceed the drone carrying capacity</ion-label>
+                </ion-chip>
+                <ion-button (click)="onActivateSwarm()" size="small">Activate Swarm</ion-button>
             </div>
-            <div class="container right">
-                <div class="content">
-                    <h2>Tranquilizer</h2>
-                    <ion-card>
-                        <ion-item>
-                            <ion-avatar slot="start">
-                                <img src="../../assets/inventory/tranquilizer.jpg">
-                            </ion-avatar>
-                            <ion-label> Tranquilizers </ion-label>
+            <div *ngIf="activated">
+                <ion-progress-bar type="indeterminate" reversed="true"></ion-progress-bar>
 
-                            <ion-item slot="end">
-
-                                <ion-label>Quantity : 1</ion-label>
-
-                            </ion-item>
-                            <ion-button color="danger" slot="end" fill="outline">
-                                <ion-icon name="remove"></ion-icon>
-                                Remove
-                            </ion-button>
-                        </ion-item>
-                    </ion-card>
-                </div>
             </div>
 
-        </div>
+            <div *ngIf="weightStatus">
+                <ion-chip>
+                    <ion-icon name="bug" color="success"></ion-icon>
+                    <ion-label>The packets are ready to be delivered</ion-label>
+                </ion-chip>
+            </div>
 
-        <ion-button (click)="goToMap()" expand="full">Deliver</ion-button>
+
+
+        </ion-card-content>
+    </ion-card>
+
+
+    <ion-card *ngFor="let inventory of inventoryList">
+        <ion-item>
+            <ion-avatar slot="start">
+                <img src="../../assets/inventory/tranquilizer.jpg">
+            </ion-avatar>
+            <ion-label> {{inventory.name}} </ion-label>
+
+            <ion-item>
+                <ion-label position="floating">Quantity</ion-label>
+                <ion-input [(ngModel)]="inventory.quantity" value="{{inventory.quantity}}" type="number"></ion-input>
+            </ion-item>
+
+            <ion-button (click)="onRemove(inventory)" color="danger" slot="end" fill="outline">
+                <ion-icon name="remove"></ion-icon>
+                Remove
+            </ion-button>
+        </ion-item>
+
+        <ion-card-content>
+
+            <div class="ion-float-left" *ngIf="inventory.availability">
+                <span class="dot-green"></span> Available
+            </div>
+            <div class="ion-float-left" *ngIf="!inventory.availability">
+                <span class="dot-red"></span> Unavailable
+            </div>
+            <ion-chip outline="true" class="ion-float-right">
+                <ion-icon name="fitness" color="primary"></ion-icon>
+                <ion-label>{{inventory.weight}} kg</ion-label>
+            </ion-chip>
+        </ion-card-content>
     </ion-card>
 </ion-content>

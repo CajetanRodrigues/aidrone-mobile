@@ -29,7 +29,7 @@ export class DroneService {
 
   deliverPacket(gps: any): Observable<any> {
     return this.http.post<any>
-      ('http://127.0.0.1:5000/coordinates', {
+      ('http://35.154.138:70/coordinates', {
         src : {
           lat: gps.src.lat,
           lon: gps.src.lon

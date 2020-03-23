@@ -26,15 +26,16 @@ export class LoginPage implements OnInit {
 
   onSubmit() {
     // TODO: Use EventEmitter with form value
-    this.userService.onLogin(this.UserForm.value.email, this.UserForm.value.password)
-    .subscribe((res: any) => {
-      console.log(res);
-      if (res === 'true') {
-        this.router.navigateByUrl('home');
-        return;
-      }
-      this.router.navigateByUrl('login');
-    });
+    // this.userService.onLogin(this.UserForm.value.email, this.UserForm.value.password)
+    // .subscribe((res: any) => {
+    //   console.log(res);
+    //   if (res === 'true') {
+    //     this.router.navigateByUrl('home');
+    //     return;
+    //   }
+    //   this.router.navigateByUrl('login');
+    // });
+    this.router.navigateByUrl('home');
   }
   goToSignup() {
     this.router.navigateByUrl('signup');

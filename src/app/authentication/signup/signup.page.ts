@@ -24,15 +24,16 @@ export class SignupPage implements OnInit {
   }
 
   onSubmit() {
-    this.userService.onSignup(this.UserForm.value.name, this.UserForm.value.email, this.UserForm.value.password)
-    .subscribe((data) => {
-      if (data) {
-        this.router.navigate(['login']);
-        return;
-      }
-      this.router.navigateByUrl('signup');
-    });
-    console.warn(this.UserForm.value);
+    // this.userService.onSignup(this.UserForm.value.name, this.UserForm.value.email, this.UserForm.value.password)
+    // .subscribe((data) => {
+    //   if (data) {
+    //     this.router.navigate(['login']);
+    //     return;
+    //   }
+    //   this.router.navigateByUrl('signup');
+    // });
+    // console.warn(this.UserForm.value);
+    this.router.navigateByUrl('login');
   }
   goToLogin() {
     this.router.navigateByUrl('login');

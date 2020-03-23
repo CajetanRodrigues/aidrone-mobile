@@ -1,0 +1,36 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title class="global-font">
+            Track your UAV
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+
+        <ion-card>
+            <ion-item>
+                <ion-icon name="pin" slot="start"></ion-icon>
+                <ion-label>From <b>Fr Agnel</b> To <b>Taj Lands End</b></ion-label>
+            </ion-item>
+
+            <ion-card-content>
+                <span class="dot-green"></span>
+                <ion-label>Ongoing</ion-label>
+            </ion-card-content>
+        </ion-card>
+        <ion-button (click)="goToMap()" expand="block" fill="outline">View on Google Map</ion-button>
+        <ion-button (click)="goToLiveFlightParametersPage()" expand="block" fill="outline">View Live Flight Parameters</ion-button>
+        <ion-button (click)="goToDronesPage()" expand="block" fill="outline">View Products on the UAV/UAVs</ion-button>
+        <ion-button (click)="goToMissionsPage()" expand="block" fill="outline">Review Missions</ion-button>
+        <ion-button (click)="goToHomePage()" expand="block" fill="outline">Schedule Next Order</ion-button>
+
+
+
+    </ion-card>
+
+</ion-content>

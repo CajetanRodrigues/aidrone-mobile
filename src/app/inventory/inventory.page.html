@@ -6,19 +6,19 @@
         <ion-title class="global-font">
             Inventory
         </ion-title>
-        <ion-button (click)="goToSchedule()" fill="outline" color="light" shape="round" slot="end">Proceed</ion-button>
+        <ion-button (click)="onNavigate()" fill="outline" color="light" shape="round" slot="end">Proceed</ion-button>
 
     </ion-toolbar>
 </ion-header>
 <ion-content>
-    <ion-card>
+    <ion-card *ngFor="let inventory of inventoryList">
         <ion-item>
             <ion-avatar slot="start">
                 <img src="../../assets/inventory/tranquilizer.jpg">
             </ion-avatar>
-            <ion-label> Tranquilizer </ion-label>
+            <ion-label> {{inventory.name}} </ion-label>
 
-            <ion-button slot="end" fill="outline">
+            <ion-button [disabled]="!inventory.availability" (click)="onAddItem(inventory)" slot="end" fill="outline">
                 <ion-icon name="add-circle-outline"></ion-icon>
                 Add
             </ion-button>
@@ -26,89 +26,20 @@
 
         <ion-card-content>
 
-            <span class="dot-green"></span>
-            <ion-label>Available</ion-label>
 
-            <ion-chip outline="true">
+            <div class="ion-float-left" *ngIf="inventory.availability">
+                <span class="dot-green"></span> Available
+            </div>
+            <div class="ion-float-left" *ngIf="!inventory.availability">
+                <span class="dot-red"></span> Unavailable
+            </div>
+
+
+            <ion-chip class="ion-float-right" outline="true">
                 <ion-icon name="fitness" color="primary"></ion-icon>
-                <ion-label>Available : 500 Units</ion-label>
-            </ion-chip>
-            <ion-chip outline="true">
-                <ion-icon name="fitness" color="primary"></ion-icon>
-                <ion-label>0.1 kg</ion-label>
-            </ion-chip>
-
-            <ion-item>
-                <ion-label>Quantity</ion-label>
-                <ion-select [interfaceOptions]="customActionSheetOptions" interface="action-sheet" placeholder="Select One">
-                    <ion-select-option value="1">1</ion-select-option>
-                    <ion-select-option value="2">2</ion-select-option>
-                    <ion-select-option value="3">3</ion-select-option>
-                    <ion-select-option value="4">4</ion-select-option>
-                    <ion-select-option value="5">5</ion-select-option>
-                </ion-select>
-            </ion-item>
-        </ion-card-content>
-    </ion-card>
-
-    <ion-card>
-        <ion-item>
-            <ion-avatar slot="start">
-                <img src="../../assets/inventory/bread.jpg">
-            </ion-avatar>
-            <ion-label> Bread </ion-label>
-
-
-            <ion-button slot="end" fill="outline">
-                <ion-icon name="add-circle-outline"></ion-icon>
-                Add
-            </ion-button>
-        </ion-item>
-
-        <ion-card-content>
-            <span class="dot-green"></span>
-            <ion-label>Available</ion-label>
-
-
-            <ion-chip outline="true">
-                <ion-icon name="fitness" color="primary"></ion-icon>
-                <ion-label>Available : 500 Units</ion-label>
-            </ion-chip>
-            <ion-chip outline="true">
-                <ion-icon name="fitness" color="primary"></ion-icon>
-                <ion-label>0.1 kg</ion-label>
+                <ion-label>{{inventory.weight}} kg</ion-label>
             </ion-chip>
         </ion-card-content>
     </ion-card>
 
-    <ion-card>
-        <ion-item>
-            <ion-avatar slot="start">
-                <img src="../../assets/inventory/vaccine.jpg">
-            </ion-avatar>
-            <ion-label> Vaccine </ion-label>
-
-            <ion-button disabled slot="end" fill="outline">
-                <ion-icon name="add-circle-outline"></ion-icon>
-                Add
-            </ion-button>
-        </ion-item>
-
-        <ion-card-content>
-            <span class="dot-red"></span>
-            <ion-label>Unavailable</ion-label>
-
-
-            <ion-chip outline="true">
-                <ion-icon name="fitness" color="primary"></ion-icon>
-                <ion-label>Available : 500 Units</ion-label>
-            </ion-chip>
-            <ion-chip outline="true">
-                <ion-icon name="fitness" color="primary"></ion-icon>
-                <ion-label>0.1 kg</ion-label>
-            </ion-chip>
-
-
-        </ion-card-content>
-    </ion-card>
 </ion-content>
