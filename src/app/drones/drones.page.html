@@ -11,8 +11,10 @@
 <ion-content>
     <ion-card *ngFor="let drone of droneList">
         <ion-item>
+            <ion-icon src="../assets/icon/arrow-redo-sharp.svg" color="primary"></ion-icon>
+
             <ion-avatar slot="start">
-                <img src="../../assets/drones/alpha.jpg">
+                <img src="{{drone.image}}">
             </ion-avatar>
             <ion-label>Drone <b>{{drone.name}}</b></ion-label>
             <ion-chip>
@@ -20,16 +22,10 @@
                 <ion-label>Capacity : {{drone.capacity}} kg
                 </ion-label>
             </ion-chip>
-            <ion-button *ngIf="!droneModalOpened" (click)="goToInventory(drone)" fill="outline" slot="end">Select</ion-button>
         </ion-item>
 
         <ion-card-content>
-
-
             <ion-label class="float-right" slot="end">
-
-
-
                 <div *ngIf="drone.availability">
                     <span class="dot-green"></span> Available
                 </div>
@@ -42,5 +38,8 @@
             </ion-label>
 
         </ion-card-content>
+    </ion-card>
+    <ion-card *ngIf="!droneList">
+        <img width="100%" height="50%" src="../../assets/gif/404.gif" alt="Description" />
     </ion-card>
 </ion-content>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as Pusher from 'pusher-js';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-flight-parameters',
@@ -16,9 +17,14 @@ export class FlightParametersPage implements OnInit {
   vicinity: any;
   clienttime: any;
   warehousetime: any;
-  constructor() { }
+  constructor(private route: ActivatedRoute) { 
+    console.log(parseInt(this.route.parent.snapshot.paramMap.get('missionId')));
+
+  }
 
   ngOnInit() {
+    // tslint:disable-next-line: radix
+
     // Enable pusher logging - don't include this in production
     Pusher.logToConsole = true;
 

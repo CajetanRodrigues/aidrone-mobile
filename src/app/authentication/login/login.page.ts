@@ -16,27 +16,41 @@ export class LoginPage implements OnInit {
     email: ['', Validators.required],
     password: ['', Validators.required],
   });
-
+  message = '';
   constructor(private fb: FormBuilder,
               private router: Router,
               private userService: UserService) { }
 
   ngOnInit() {
+    if (localStorage.getItem('token') === 'true') {
+      this.router.navigateByUrl('home');
+    } else {
+      this.router.navigateByUrl('login');
+    }
   }
 
   onSubmit() {
-    // TODO: Use EventEmitter with form value
-    // this.userService.onLogin(this.UserForm.value.email, this.UserForm.value.password)
-    // .subscribe((res: any) => {
-    //   console.log(res);
-    //   if (res === 'true') {
-    //     this.router.navigateByUrl('home');
-    //     return;
-    //   }
-    //   this.router.navigateByUrl('login');
-    // });
-    this.router.navigateByUrl('home');
-  }
+    console.log(this.UserForm);
+    this.userService.onLogin(this.UserForm.value.email, this.UserForm.value.password)
+    .subscribe((data) => {
+console.log(data);
+    });
+   // this.router.navigateByUrl('signup');
+   localStorage.setItem('token', 'true');
+   this.router.navigateByUrl('home');
+  //   this.userService.onLogin(this.UserForm.value.email, this.UserForm.value.password)
+  //  .subscribe((data: boolean) => {
+  //    console.log(data);
+  //    if (data === true) {
+  //      this.router.navigateByUrl('home');
+  //      localStorage.setItem('token', 'true');
+  //    } else {
+  //      this.message = 'Backend Error';
+  //      localStorage.setItem('token', 'false');
+  //    }
+
+  //  });
+}
   goToSignup() {
     this.router.navigateByUrl('signup');
   }

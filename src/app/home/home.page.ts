@@ -1,4 +1,4 @@
-import { Component, NgZone } from '@angular/core';
+import { Component, NgZone, OnInit, OnDestroy } from '@angular/core';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { GooglemapsService } from '../services/googlemaps.service';
 import { DroneService } from '../services/drone.service';
@@ -16,8 +16,10 @@ export interface Param {
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit, OnDestroy {
 
+
+  
   params: Param[] = [];
   autocomplete: any;
   autocomplete1: any;
@@ -38,13 +40,18 @@ export class HomePage {
     lat : 19.046998,
     lng : 72.81965559999999
   };
+  fetchAddress = '';
+  startAddress = '';
+  show = false;
+  showProgress = true;
   constructor(    public zone: NgZone,
                   public loadingCtrl: LoadingController,
                   public googlemapsService: GooglemapsService,
                   public droneService: DroneService,
                   public router: Router,
                   public modalController: ModalController,
-                  public appService: AppService) {
+                  public appService: AppService,
+                  public loadingController: LoadingController) {
 
        this.geocoder = new google.maps.Geocoder;
        const elem = document.createElement('div');
@@ -60,6 +67,46 @@ export class HomePage {
        this.autocompleteItems1 = [];
        this.loading = this.loadingCtrl.create();
 
+  }
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.showProgress = false
+    }, 1200);
+  }
+  ngOnDestroy(): void {
+    this.autocomplete.input = '';
+    this.autocomplete1.input = '';
+  }
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      message: 'Please wait...',
+      duration: 200
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
+  }
+
+  findMe() {
+    this.show = true;
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        console.log(position);
+        const geocoder = new google.maps.Geocoder;
+        const latlng = {lat: position.coords.latitude, lng: position.coords.longitude};
+        geocoder.geocode({location: latlng}, (results, status) => {
+        this.fetchAddress = results[0].formatted_address
+        console.log('Findme address : ' + results[0].formatted_address);
+        this.autocomplete.input = 'Latitude: ' + position.coords.latitude.toString() +
+         ' | ' + 'Longitude :' + position.coords.longitude.toString();
+        this.droneService.gps.src.lat = position.coords.latitude;
+        this.droneService.gps.src.lng = position.coords.longitude;
+});
+      });
+    } else {
+      alert('Geolocation is not supported by this browser.');
+    }
   }
   updateSearchResults() {
     if (this.autocomplete.input === '') {
@@ -106,7 +153,7 @@ export class HomePage {
           location: results[0].geometry.location,
           radius: '1000',
           types: ['places'],
-          key: 'AIzaSyCWa1dUXh6EPJGRFxm4VPKKH6L4ZDF1F1o'
+          key: 'AIzaSyDAyTW-4duB-d0o4-KjnsTggnG_ihl0N5M'
         }, (near_places) => {
           this.zone.run(() => {
             this.nearbyItems = [];
@@ -126,8 +173,11 @@ export class HomePage {
     .subscribe((data: any) => {
       this.src.lat = data.results[0].geometry.location.lat;
       this.src.lng = data.results[0].geometry.location.lng;
+      console.log('src coords');
       console.log(data.results[0].geometry.location.lat);
       console.log(data.results[0].geometry.location.lng);
+      console.log('#1');
+      console.log(data);
     });
 
   }
@@ -136,6 +186,8 @@ export class HomePage {
     this.autocompleteItems1 = [];
     this.googlemapsService.getGeocoderResults(place.description)
     .subscribe((data: any) => {
+      console.log('des coords');
+
       this.des.lat = data.results[0].geometry.location.lat;
       this.des.lng = data.results[0].geometry.location.lng;
       console.log(data.results[0].geometry.location.lat);
@@ -143,6 +195,8 @@ export class HomePage {
     });
   }
   deliver() {
+    
+    this.presentLoading();
     this.appService.from = this.autocomplete.input;
     this.appService.to = this.autocomplete1.input;
     const data = {
@@ -156,7 +210,12 @@ export class HomePage {
     //   }
     // );
     // this.googlemapsService.emitGPSObservable(data);
-    this.droneService.gps = data;
+    this.droneService.gps.src.lat = data.src.lat;
+    this.droneService.gps.src.lng = data.src.lng;
+    this.droneService.gps.des.lat = data.des.lat;
+    this.droneService.gps.des.lng = data.des.lng;
+    console.log('#2');
+    console.log(this.droneService.gps);
     this.router.navigateByUrl('inventory');
   }
 }

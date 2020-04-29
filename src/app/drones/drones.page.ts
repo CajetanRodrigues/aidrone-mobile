@@ -22,6 +22,11 @@ export class DronesPage implements OnInit {
                }
 
   ngOnInit() {
+  this.droneService.getDrones()
+  .subscribe((data) => {
+    this.droneList = data;
+    console.log(data);
+  });
   }
   goToInventory(drone: Drone) {
 

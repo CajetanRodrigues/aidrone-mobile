@@ -6,13 +6,16 @@ import * as Pusher from 'pusher-js';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { IBeacon } from '@ionic-native/ibeacon/ngx';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
+import { AppService } from '../app.service';
+import { MissionService } from '../services/mission.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.page.html',
   styleUrls: ['./map.page.scss'],
 })
-export class MapPage implements OnInit, DoCheck {
+export class MapPage implements OnInit {
   image = {
     url: '../assets/icon/drone.png',
     // This marker is 20 pixels wide by 32 pixels high.
@@ -28,150 +31,101 @@ export class MapPage implements OnInit, DoCheck {
   current = {lat: 0.0, lng: 0.0};
   marker: any;
   flightPlanCoordinates = [
-    {
-      lat : 19.044497,
-      lng : 72.8204535
-    },
-   {
-      lat : 19.046998,
-      lng : 72.81965559999999
-    }
+    {lat: 19.044503, lng: 72.820451},
+    {lat: 19.0446372, lng: 72.8204825},
+    {lat: 19.0448958, lng: 72.8191573},
+    {lat: 19.0500347, lng: 72.8212408},
   ];
   flightPath: any;
   gps: GPS;
   pushNotificationFlag = false;
   vicinity = false;
-  uuid = '';
-  constructor(private droneService: DroneService,
-              private localNotifications: LocalNotifications,
-              private ibeacon: IBeacon,
-              private uniqueDeviceID: UniqueDeviceID) {
-    this.gps = droneService.gps;
-    this.uniqueDeviceID.get()
-  .then((uuid: any) => {
-    console.log('Device UUId Extraction started successfully');
-    this.droneService.emitBeacon(uuid).subscribe((data) => {
-      console.log('UUID :----- : ' + JSON.stringify(data));
-      this.uuid = uuid;
-    }
-    );
-  })
-  .catch((error: any) => console.log(error));
-    Pusher.logToConsole = true;
+  missionId = '';
+  constructor(
+              private missionService: MissionService,
+              private route: ActivatedRoute,
+              private droneService: DroneService) {
+    this.missionId = this.route.snapshot.paramMap.get('id');
 
-    const pusher = new Pusher('980f167a4cd9ef7b753c', {
-         cluster: 'ap2',
-         forceTLS: true
-       });
-
-    const channel = pusher.subscribe('my-channel');
-    channel.bind('my-event', (obj) => {
-        this.current.lat = obj.latitude;
-        this.current.lng = obj.longitude;
-        this.vicinity = obj.vicinity;
-        if (this.vicinity === true) {
-          console.log('Beacon Emitting started.................');
-          // Request permission to use location on iOS
-          this.ibeacon.requestAlwaysAuthorization();
-// create a new delegate and register it with the native layer
-          const delegate = this.ibeacon.Delegate();
-
-// Subscribe to some of the delegate's event handlers
-          delegate.didRangeBeaconsInRegion()
-  .subscribe(
-    data => console.log('didRangeBeaconsInRegion: ', data),
-    error => console.error()
-  );
-          delegate.didStartMonitoringForRegion()
-  .subscribe(
-    data => console.log('didStartMonitoringForRegion: ', data),
-    error => console.error()
-  );
-          delegate.didEnterRegion()
-  .subscribe(
-    data => {
-      console.log('didEnterRegion: ', data);
-    }
-  );
-
-          const beaconRegion = this.ibeacon.BeaconRegion('deskBeacon', this.uuid);
-
-          this.ibeacon.startMonitoringForRegion(beaconRegion)
-  .then(
-    () => console.log('Native layer received the request to monitoring'),
-    error => console.error('Native layer failed to begin monitoring: ', error)
-  );
-
-
-        }
-
-        this.marker = new google.maps.Marker({
-          position: {
-            lat: obj.latitude,
-            lng: obj.longitude,
-          },
-          map: this.map,
-          icon: this.image,
-          });
-        setTimeout(() => {
-            this.marker.setMap(null);
-          }, 1000);
-       });
-      //  marker.setAnimation(null);
+    // Dont know why the below statement
+      //  
   }
 
   ngOnInit(): void {
-    console.log(JSON.stringify(this.droneService.gps));
-    this.flightPlanCoordinates = [
-      {lat: this.gps.src.lat, lng: this.gps.src.lng},
-      {lat: this.gps.des.lat, lng: this.gps.des.lng},
-    ];
-    this.current = { lat: this.gps.src.lat, lng: this.gps.src.lng};
 
-    setTimeout(() => {
-      console.log('Pushed notification');
-      this.localNotifications.schedule({
-        id: 1,
-        text: 'Drone Delivery Update',
-        sound: '../assets/music/push-notification.mp3',
-        data: 'Testing notifications!'
-      });
-    }, 10000);
+    // Fetch one mission by id and set the path
+    this.missionService.fetchMissionByID(this.missionId)
+      .subscribe((mission: any) => {
+        console.log('My fetched waypoints');
+        console.log(mission.waypoints);
+        this.flightPlanCoordinates = mission.waypoints;
 
-    this.map = new google.maps.Map(
-      this.mapElement.nativeElement,
-      {
-        center: {lat: this.gps.src.lat, lng: this.gps.src.lng},
-        zoom: 20
-      });
-    this.flightPath = new google.maps.Polyline({
-    path: this.flightPlanCoordinates,
-    geodesic: true,
-    strokeColor: '#00ff2a',
-    strokeOpacity: 1.0,
-    strokeWeight: 2
-  });
-    this.marker = new google.maps.Marker({position: {
-    lat: this.gps.src.lat,
-    lng: this.gps.src.lng
-  }, map: this.map, icon: '../assets/icon/drone.png',
-  animation: google.maps.Animation.BOUNCE});
-    this.marker = new google.maps.Marker({position: {
-    lat: this.gps.des.lat,
-    lng: this.gps.des.lng
-  }, map: this.map, icon: '../assets/icon/user.png',
-  animation: google.maps.Animation.BOUNCE});
-    this.flightPath.setMap(this.map);
-  }
+        setTimeout(() => {
+            // Drawing the path on the google map
+        this.flightPath = new google.maps.Polyline({
+          path: this.flightPlanCoordinates,
+          geodesic: true,
+          strokeColor: '#00ff2a',
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+        });
+        this.map = new google.maps.Map(
+            this.mapElement.nativeElement,
+            {
+              center: {lat: this.flightPlanCoordinates[0].lat, lng: this.flightPlanCoordinates[0].lng},
+              zoom: 17
+            });
 
-  ngDoCheck() {
-    if (this.pushNotificationFlag) {
-      this.localNotifications.schedule({
-        id: 1,
-        text: 'Drone Delivery Update',
-        sound: '../assets/music/push-notification.mp3',
-        data: 'Your parcel will reach in -- seconds!'
+
+          // Setting Source location
+        this.marker = new google.maps.Marker({position: {
+            lat: this.flightPlanCoordinates[0].lat,
+            lng: this.flightPlanCoordinates[0].lng
+        }, map: this.map, icon: '../assets/icon/drone.png',
+        animation: google.maps.Animation.BOUNCE});
+
+
+          // Setting destination location
+        this.marker = new google.maps.Marker({position: {
+            lat: this.flightPlanCoordinates[this.flightPlanCoordinates.length - 1].lat,
+            lng: this.flightPlanCoordinates[this.flightPlanCoordinates.length - 1].lng
+        }, map: this.map, icon: '../assets/icon/user.png',
+        animation: google.maps.Animation.BOUNCE});
+        setTimeout(() => {
+            this.flightPath.setMap(this.map);
+      }, 200);
+    }, 200);
       });
-    }
-  }
+    // current variable ?
+    this.current = { lat: this.flightPlanCoordinates[0].lat, lng: this.flightPlanCoordinates[0].lng};
+
+    // Now call the user orders by missionID every 2 seconds
+    setInterval(() => {
+      this.droneService.readCoordinatesByMissionId(this.missionId)
+      .subscribe((data) => {
+        console.log('syncing...next sync after 3s');
+        console.log(data);
+        this.current.lat = Number(data[0].latitude);
+        this.current.lng = Number(data[0].longitude);
+      // This is the live marker which is updated every 5 seconds
+        this.marker = new google.maps.Marker({
+        position: {
+          lat: Number(data[0].latitude),
+          lng: Number(data[0].longitude),
+        },
+        map: this.map,
+        icon: this.image,
+        });
+        setTimeout(() => {
+          this.marker.setMap(null);
+          // marker.setAnimation(null);
+        }, 2000);
+      });
+
+
+
+    }, 3000);
+ }
+
+
 }

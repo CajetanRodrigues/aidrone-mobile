@@ -17,6 +17,17 @@ export class InProgressPage implements OnInit {
   counter = 0;
   spinner = true;
   a: any;
+  data: any;
+
+  ionViewWillEnter() {
+    setTimeout(() => {
+      this.data = {
+        'heading': 'Normal text',
+        'para1': 'Lorem ipsum dolor sit amet, consectetur',
+        'para2': 'adipiscing elit.'
+      };
+    }, 5000);
+  }
   constructor(private router: Router) { }
 
   ngOnInit() {
@@ -45,7 +56,7 @@ export class InProgressPage implements OnInit {
         this.spinner =  false;
       }
       if (this.counter === 9) {
-        this.router.navigateByUrl('track');
+        this.router.navigateByUrl('person-drone-animation');
       }
     }, 1000 );
   }

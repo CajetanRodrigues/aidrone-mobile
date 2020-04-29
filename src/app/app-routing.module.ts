@@ -4,52 +4,77 @@ import { HomePage } from './home/home.page';
 import { LoginPage } from './authentication/login/login.page';
 import { SignupPage } from './authentication/signup/signup.page';
 import { MapPage } from './map/map.page';
-import { ListPage } from './list/list.page';
 import { MissionsPage } from './missions/missions.page';
 import { DronesPage } from './drones/drones.page';
 import { InventoryPage } from './inventory/inventory.page';
 import { SchedulePage } from './schedule/schedule.page';
 import { InProgressPage } from './in-progress/in-progress.page';
 import { DronesPageModal } from './temporary-ui/drones/drones.page';
+import { FlightParametersPage } from './temporary-ui/flight-parameters/flight-parameters.page';
+import { TrackPage } from './track/track.page';
+import { AuthGuardService } from './services/auth/auth-guard.service';
+import { PersonDroneAnimationPage } from './person-drone-animation/person-drone-animation.page';
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: 'login',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'home',
-    component: HomePage
+    component: HomePage,
+    canActivate: [AuthGuardService]
   },
-  {
-    path: 'list',
-    component: ListPage
-  },
-  { path: 'map',
-    component: MapPage
+  { path: 'map/:id',
+    component: MapPage,
   },
   { path: 'login',
-    component: LoginPage
+    component: LoginPage,
   },
   { path: 'signup',
-    component: SignupPage
+    component: SignupPage,
   },
   { path: 'missions',
-    component: MissionsPage },
+    component: MissionsPage,
+    canActivate: [AuthGuardService]
+  },
   { path: 'drones',
-    component: DronesPage },
+    component: DronesPage,
+    canActivate: [AuthGuardService]
+
+  },
   { path: 'inventory',
-    component: InventoryPage },
+    component: InventoryPage,
+    canActivate: [AuthGuardService]
+  },
   { path: 'schedule',
-    component: SchedulePage },
+    component: SchedulePage,
+    canActivate: [AuthGuardService]
+  },
   { path: 'in-progress',
-    component: InProgressPage },
+    component: InProgressPage,
+    canActivate: [AuthGuardService]
+  },
   { path: 'track',
-    loadChildren: './track/track.module#TrackPageModule' },
+    component: TrackPage,
+    canActivate: [AuthGuardService]
+  },
   { path: 'drones-modal',
-    component: DronesPageModal },
-  { path: 'flight-parameters', loadChildren: './temporary-ui/flight-parameters/flight-parameters.module#FlightParametersPageModule' },
+    component: DronesPageModal,
+    canActivate: [AuthGuardService]
+  },
+  { path: 'flight-parameters/:missionId',
+    component: FlightParametersPage,
+    canActivate: [AuthGuardService]
+  },
+  { path: 'person-drone-animation',
+  component: PersonDroneAnimationPage
+  },
+  { path: 'mission-detail', loadChildren: './missions/mission-detail/mission-detail.module#MissionDetailPageModule' },
+
+  { path: '**', redirectTo: 'person-drone-animation' },
+
 ];
 
 @NgModule({

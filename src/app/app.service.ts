@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AppService {
+  public orderId = '';
+  public missionId = '';
   public from = '';
   public to = '';
   droneModalOpened = false;
@@ -59,7 +61,7 @@ export class AppService {
       capacity: 4
     }
   ];
-  inventoryList: Inventory[] = [
+  inventoryList: any[] = [
     {
       id: 4,
       name: 'bandage',

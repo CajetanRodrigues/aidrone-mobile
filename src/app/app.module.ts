@@ -13,7 +13,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { UserService } from './services/user.service';
 import { HomePageModule } from './home/home.module';
 import { LoginPageModule } from './authentication/login/login.module';
-import { ListPageModule } from './list/list.module';
 import { SignupPageModule } from './authentication/signup/signup.module';
 import { MapPageModule } from './map/map.module';
 import { GooglemapsService } from './services/googlemaps.service';
@@ -30,10 +29,21 @@ import { DronesPage } from './drones/drones.page';
 import { InProgressPageModule } from './in-progress/in-progress.module';
 import { DronesPageModal } from './temporary-ui/drones/drones.page';
 import { DronesPageModalModule } from './temporary-ui/drones/drones.module';
+import { InventoryService } from './services/inventory.service';
+import { ScheduleService } from './services/schedule.service';
+import { MissionService } from './services/mission.service';
 
+import { TrackPageModule } from './track/track.module';
+import { FlightParametersPageModule } from './temporary-ui/flight-parameters/flight-parameters.module';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { AuthGuardService } from './services/auth/auth-guard.service';
+import { MissionDetailPage } from './missions/mission-detail/mission-detail.page';
+import { MissionDetailPageModule } from './missions/mission-detail/mission-detail.module';
+import { PersonDroneAnimationPageModule } from './person-drone-animation/person-drone-animation.module';
+import { PersonDroneAnimationPage } from './person-drone-animation/person-drone-animation.page';
 @NgModule({
   declarations: [AppComponent],
-  entryComponents: [DronesPage, DronesPageModal],
+  entryComponents: [DronesPage, DronesPageModal, MissionDetailPage, PersonDroneAnimationPage],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
@@ -44,14 +54,17 @@ import { DronesPageModalModule } from './temporary-ui/drones/drones.module';
     HomePageModule,
     LoginPageModule,
     SignupPageModule,
-    ListPageModule,
     MapPageModule,
     MissionsPageModule,
     DronesPageModule,
     InventoryPageModule,
     SchedulePageModule,
     InProgressPageModule,
-    DronesPageModalModule
+    DronesPageModalModule,
+    TrackPageModule,
+    FlightParametersPageModule,
+    MissionDetailPageModule,
+    PersonDroneAnimationPageModule
   ],
   providers: [
     StatusBar,
@@ -63,7 +76,11 @@ import { DronesPageModalModule } from './temporary-ui/drones/drones.module';
     LocalNotifications,
     IBeacon,
     UniqueDeviceID,
-    AppService
+    AppService,
+    InventoryService,
+    ScheduleService,
+    MissionService,
+    AuthGuardService
   ],
   bootstrap: [AppComponent],
 })

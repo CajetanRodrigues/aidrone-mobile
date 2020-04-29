@@ -3,6 +3,7 @@ import { Validators, FormBuilder } from '@angular/forms';
 import { NavController } from '@ionic/angular';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-signup',
@@ -15,27 +16,31 @@ export class SignupPage implements OnInit {
     email: ['', Validators.required],
     password: ['', Validators.required],
   });
+  message = '';
 
   constructor(private fb: FormBuilder,
               private router: Router,
-              private userService: UserService) { }
+              private userService: UserService,
+              private httpClient: HttpClient) { }
 
   ngOnInit() {
   }
 
   onSubmit() {
-    // this.userService.onSignup(this.UserForm.value.name, this.UserForm.value.email, this.UserForm.value.password)
-    // .subscribe((data) => {
-    //   if (data) {
-    //     this.router.navigate(['login']);
-    //     return;
-    //   }
-    //   this.router.navigateByUrl('signup');
-    // });
-    // console.warn(this.UserForm.value);
-    this.router.navigateByUrl('login');
+        console.log(this.UserForm);
+       // this.router.navigateByUrl('login');
+        this.userService.onSignup(this.UserForm.value.name, this.UserForm.value.email, this.UserForm.value.password)
+       .subscribe((data: boolean) => {
+         console.log(data);
+         if (data === true) {
+           this.router.navigateByUrl('login');
+         } else {
+           this.message = 'Backend Error';
+         }
+
+       });
   }
   goToLogin() {
-    this.router.navigateByUrl('login');
+       this.router.navigateByUrl('login');
   }
 }

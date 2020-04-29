@@ -6,19 +6,30 @@
         <ion-title class="global-font">
             Inventory
         </ion-title>
-        <ion-button (click)="onNavigate()" fill="outline" color="light" shape="round" slot="end">Proceed</ion-button>
+        <ion-button [disabled]="tempUserBag.length==0" (click)="onNavigate()" fill="outline" color="light" shape="round" slot="end">
+            <ion-icon src="../assets/icon/arrow-redo-sharp.svg"></ion-icon>
+            Proceed</ion-button>
 
     </ion-toolbar>
 </ion-header>
+<div *ngIf="showProgress">
+    <ion-progress-bar color="primary" type="indeterminate" reversed="true"></ion-progress-bar>
+</div>
+
 <ion-content>
     <ion-card *ngFor="let inventory of inventoryList">
         <ion-item>
             <ion-avatar slot="start">
-                <img src="../../assets/inventory/tranquilizer.jpg">
+                <img src="{{inventory.image}}">
             </ion-avatar>
-            <ion-label> {{inventory.name}} </ion-label>
+            <ion-icon src="../assets/icon/arrow-redo-sharp.svg" color="primary"></ion-icon>
 
-            <ion-button [disabled]="!inventory.availability" (click)="onAddItem(inventory)" slot="end" fill="outline">
+            <ion-label> {{inventory.name}} </ion-label>
+            <ion-item>
+                <ion-label position="floating">Quantity</ion-label>
+                <ion-input [(ngModel)]="inventory.units" value="{{inventory.units}}" type="number"></ion-input>
+            </ion-item>
+            <ion-button [disabled]="!inventory.availability || !inventory.units" (click)="onAddItem(inventory)" slot="end" fill="outline">
                 <ion-icon name="add-circle-outline"></ion-icon>
                 Add
             </ion-button>
@@ -36,10 +47,13 @@
 
 
             <ion-chip class="ion-float-right" outline="true">
-                <ion-icon name="fitness" color="primary"></ion-icon>
+                <ion-icon src="../assets/icon/barbell-sharp.svg" color="primary"></ion-icon>
                 <ion-label>{{inventory.weight}} kg</ion-label>
             </ion-chip>
         </ion-card-content>
+    </ion-card>
+    <ion-card *ngIf="inventoryList.length==0">
+        <img width="100%" height="50%" src="../../assets/gif/404.gif" alt="Description" />
     </ion-card>
 
 </ion-content>

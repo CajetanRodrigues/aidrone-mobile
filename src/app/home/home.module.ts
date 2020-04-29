@@ -12,10 +12,6 @@ import { AgmCoreModule } from '@agm/core';
     CommonModule,
     FormsModule,
     IonicModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCWa1dUXh6EPJGRFxm4VPKKH6L4ZDF1F1o',
-      libraries: ['places']
-    }),
     RouterModule.forChild([
       {
         path: '',

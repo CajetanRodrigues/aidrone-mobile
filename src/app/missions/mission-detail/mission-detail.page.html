@@ -1,0 +1,98 @@
+<ion-header>
+    <ion-toolbar color="primary">
+
+        <ion-title class="global-font">
+            Mission Details
+        </ion-title>
+        <ion-button (click)="dismiss()" slot="end" color="light">
+            Close
+        </ion-button>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+
+        <ion-item>
+            <ion-icon name="pin" slot="start"></ion-icon>
+            <ion-label>From <b>{{missionInfo.from}}</b></ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-icon name="pin" slot="start"></ion-icon>
+            <ion-label>To <b>{{missionInfo.to}}</b></ion-label>
+        </ion-item>
+
+        <ion-card-content>
+            <ion-item>
+                <ion-label><b>Distance travelled:</b> {{missionInfo.distanceTravelled}}</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label><b>Date of mission: </b>{{missionInfo.dateOfMission}}</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label><b>Time of departure: </b> {{missionInfo.timeOfDeparture}}</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label><b>Time of delivery: </b> {{missionInfo.timeOfDelivery}}</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label><b>Time of arrival: </b> {{missionInfo.timeOfArrival}}</ion-label>
+            </ion-item>
+
+
+
+        </ion-card-content>
+    </ion-card>
+    <ion-card id="client-photograph">
+        <ion-card-header>
+            <img src="{{missionInfo.clientPhotograph}}">
+
+            <ion-card-subtitle>Client Photograph</ion-card-subtitle>
+            <ion-card-title>Mr. Vedant Sakhardande</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+            This image has been captured by a high resolution camera mounted on the drone
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngFor="let obj of missionInfo.order.AssignedDrones">
+        <ion-card class="card">
+            <ion-item>
+                <ion-avatar slot="start">
+                    <img src="../../assets/drones/alpha.jpg">
+                </ion-avatar>
+                <ion-label>Drone <b>{{obj.drone.name}}</b></ion-label>
+                <ion-chip>
+                    <ion-icon name="fitness" color="primary"></ion-icon>
+                    <ion-label>Capacity : {{obj.drone.capacity}} kg
+                    </ion-label>
+                </ion-chip>
+            </ion-item>
+            <ion-card-content>
+            </ion-card-content>
+        </ion-card>
+
+        <ion-card *ngFor="let inventory of obj.inventoryItems">
+            <ion-item>
+                <ion-avatar slot="start">
+                    <img src="../../assets/inventory/tranquilizer.jpg">
+                </ion-avatar>
+                <ion-label> {{inventory.name}} </ion-label>
+
+                <ion-chip outline="true" class="ion-float-right">
+                    <ion-icon name="fitness" color="primary"></ion-icon>
+                    <ion-label> {{inventory.quantity}} units</ion-label>
+                </ion-chip>
+                <ion-chip outline="true" class="ion-float-right">
+                    <ion-icon name="fitness" color="primary"></ion-icon>
+                    <ion-label>{{inventory.weight}} kg</ion-label>
+                </ion-chip>
+            </ion-item>
+
+
+        </ion-card>
+
+
+    </ion-card>
+</ion-content>

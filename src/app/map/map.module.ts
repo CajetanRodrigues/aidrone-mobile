@@ -21,10 +21,6 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCWa1dUXh6EPJGRFxm4VPKKH6L4ZDF1F1o',
-      libraries: ['places']
-    }),
     ReactiveFormsModule
   ],
   declarations: [MapPage]

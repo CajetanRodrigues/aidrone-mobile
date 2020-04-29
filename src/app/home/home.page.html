@@ -8,20 +8,30 @@
         </ion-title>
     </ion-toolbar>
 </ion-header>
-
+<div *ngIf="showProgress">
+    <ion-progress-bar color="primary" type="indeterminate" reversed="true"></ion-progress-bar>
+</div>
 <ion-content>
     <ion-card class="welcome-card">
         <ion-card-header>
             <ion-card-subtitle class="global-font">Lets get started</ion-card-subtitle>
-            <ion-card-title class="welcome-text global-font">Welcome to AI Drone</ion-card-title>
+            <ion-card-title class="welcome-text global-font">
+                Welcome to AI Drone</ion-card-title>
         </ion-card-header>
         <ion-card-content>
+            <!-- <ion-button (click)="findMe()" size="small">Double click to Autofill Current location</ion-button> -->
+
             <ion-item>
                 <ion-label position="floating">
-                    <div class="global-font">From</div>
+                    <div class="global-font">
+                        <ion-icon src="../assets/icon/map-sharp.svg" color="primary"></ion-icon>
+                        From</div>
                 </ion-label>
-                <ion-input name="from" [(ngModel)]="autocomplete.input" (ionInput)="updateSearchResults()"></ion-input>
+                <ion-input value="{{startAddress}}" name="from" [(ngModel)]="autocomplete.input" (ionInput)="updateSearchResults()"></ion-input>
 
+            </ion-item>
+            <ion-item *ngIf="show">
+                <b>Fetched Approx Location</b>:{{fetchAddress}}
             </ion-item>
             <ion-list *ngIf="autocompleteItems.length !== 0">
                 <ion-item *ngFor="let item of autocompleteItems">
@@ -30,7 +40,9 @@
             </ion-list>
             <ion-item>
                 <ion-label position="floating" class="global-font">
-                    <div class="global-font">To</div>
+                    <div class="global-font">
+                        <ion-icon src="../assets/icon/map-sharp.svg" color="primary"></ion-icon>
+                        To</div>
                 </ion-label>
                 <ion-input name="to" [(ngModel)]="autocomplete1.input" (ionInput)="updateToFieldResults()"></ion-input>
             </ion-item>
@@ -39,98 +51,10 @@
                     <ion-label (click)="selectTo(item)">{{ item.description }}</ion-label>
                 </ion-item>
             </ion-list>
-            <ion-button [disabled]="!autocomplete1.input || !autocomplete.input" (click)="deliver()" class="global-font" expand="block" fill="solid">Proceed</ion-button>
+            <ion-button [disabled]="!autocomplete1.input || !autocomplete.input" (click)="deliver()" class="global-font" expand="block" fill="solid">
+                <ion-icon src="../assets/icon/arrow-redo-sharp.svg"></ion-icon>
+                Proceed</ion-button>
         </ion-card-content>
     </ion-card>
-    <ion-card *ngIf="paramShow">
-        <ion-item class="activated">
-            <ion-icon name="globe" slot="start"></ion-icon>
-            <ion-label>
-                <div class="global-font">Latitude : {{latitude}}</div>
-            </ion-label>
-
-        </ion-item>
-
-        <ion-item class="activated">
-            <ion-icon name="globe" slot="start"></ion-icon>
-            <ion-label>
-                <div class="global-font">Longitude : {{longitude}}</div>
-            </ion-label>
-        </ion-item>
-
-        <ion-item class="activated">
-            <ion-icon name="trending-up" slot="start"></ion-icon>
-            <ion-label>
-                <div class="global-font">Altitude : {{altitude}}</div>
-            </ion-label>
-        </ion-item>
-
-        <ion-item>
-            <ion-icon name="speedometer" slot="start"></ion-icon>
-            <ion-label>
-                <div class="global-font">Velocity : {{velocity}}</div>
-            </ion-label>
-        </ion-item>
-
-        <ion-item>
-            <ion-icon name="speedometer" slot="start"></ion-icon>
-            <ion-label>
-                <div class="global-font">Distance to client : {{clientdist}}</div>
-            </ion-label>
-        </ion-item>
-
-        <ion-item>
-            <ion-icon name="speedometer" slot="start"></ion-icon>
-            <ion-label>
-                <div class="global-font">Distance to warehouse : {{warehousedist}}</div>
-            </ion-label>
-        </ion-item>
-
-        <ion-item>
-            <ion-icon name="speedometer" slot="start"></ion-icon>
-            <ion-label>
-                <div class="global-font">Time to reach client : {{clienttime}}</div>
-            </ion-label>
-        </ion-item>
-
-        <ion-item>
-            <ion-icon name="speedometer" slot="start"></ion-icon>
-            <ion-label>
-                <div class="global-font">Time to reach warehouse : {{warehousetime}}</div>
-            </ion-label>
-        </ion-item>
-
-        <ion-item>
-            <ion-icon name="speedometer" slot="start"></ion-icon>
-            <ion-label>
-                <div class="global-font">Vicinity : {{vicinity}}</div>
-            </ion-label>
-        </ion-item>
-    </ion-card>
-
+    <img width="100%" height="70%" src="../../assets/gif/drone-flying.gif" alt="Description" />
 </ion-content>
-<!-- 
-<ion-toolbar color="primary">
-    <ion-searchbar [(ngModel)]="autocomplete.input" (ionInput)="updateSearchResults()" placeholder="Find Restaurants"></ion-searchbar>
-</ion-toolbar>
-
-<ion-list [hidden]="autocompleteItems.length == 0">
-    <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)">
-        {{ item.description }}
-    </ion-item>
-</ion-list>
-<ion-grid *ngIf="nearbyItems.length == 0">
-    <ion-row>
-        <ion-col col-12>
-            <h3>
-                Please type a place on the Search bar to see nearby Restaurants
-            </h3>
-        </ion-col>
-    </ion-row>
-</ion-grid>
-<ion-list *ngIf="nearbyItems.length > 0">
-    <ion-item (click)="goToHome(place)" *ngFor="let place of nearbyItems">
-        <h2>{{place.name}}</h2>
-        <p>{{place.vicinity}}</p>
-    </ion-item>
-</ion-list> -->

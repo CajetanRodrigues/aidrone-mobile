@@ -18,7 +18,7 @@ export class GooglemapsService {
     place = place.replace(/,/g, '').replace(/ /g, '+');
     return this.http.get<any>
       ('https://maps.googleapis.com/maps/api/geocode/json?address=' + place +
-      '&key=AIzaSyCWa1dUXh6EPJGRFxm4VPKKH6L4ZDF1F1o');
+      '&key=AIzaSyDAyTW-4duB-d0o4-KjnsTggnG_ihl0N5M');
   }
   // emitGPSObservable(gps: GPS) {
   //   console.log('in ssevice :' + JSON.stringify(gps));

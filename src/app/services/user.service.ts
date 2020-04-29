@@ -16,20 +16,20 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   onSignup(Name: string, Email: string, Password: string): Observable<any> {
-    return this.http.post<any[]>
-      ('http://127.0.0.1:5000/add',
+    return this.http.post<any>
+      ('http://127.0.0.1:5000/signup',
         {
           name: Name,
           email: Email,
-          pwd: Password
+          password: Password
         }, httpOptions);
   }
   onLogin(Email: string, Password: string): Observable<any> {
-    return this.http.post<any[]>
-      ('http://127.0.0.1:5000/authentication',
+    return this.http.post<any>
+      ('https://aidrone-1250389064.ap-south-1.elb.amazonaws.com/userValidation',
       {
         email: Email,
-        pwd: Password
+        password: Password
       },
       httpOptions);
   }
