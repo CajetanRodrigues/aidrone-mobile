@@ -24,7 +24,7 @@ export class MissionService {
   }
   fetchMissions(): Observable<any> {
     return this.http.get<any>
-      ('http://35.154.138.70/readmissions',
+      ('https://aidrone-1250389064.ap-south-1.elb.amazonaws.com/readmissions',
        httpOptions);
   }
   fetchMissionByID(id: any): Observable<any> {

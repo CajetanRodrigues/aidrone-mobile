@@ -157,7 +157,7 @@ export class SchedulePage implements OnInit, DoCheck {
       setTimeout(() => {
         console.log("did i reach?")
         this.takeOffDrone();
-      }, 500);
+      }, 2000);
     }, 500);
   }
 

@@ -18,14 +18,15 @@ export class MissionsPage implements OnInit {
   ngOnInit() {
     this.missionService.fetchMissions()
     .subscribe(data => {
+      console.log('missions will arrive .....');
       console.log(data);
       this.missions = data;
     });
 
-    this.missionService.fetchInventoryItems()
-    .subscribe(data => {
-      console.log(data);
-    });
+    // this.missionService.fetchInventoryItems()
+    // .subscribe(data => {
+    //   console.log(data);
+    // });
     // Add the mission object to observable
     // Make a mission observable in app service page, make a subscriber over here.
     // So whenever I emit an event there, the subscriber will be able to hear over here

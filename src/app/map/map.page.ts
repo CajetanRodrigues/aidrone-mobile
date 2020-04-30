@@ -115,16 +115,14 @@ export class MapPage implements OnInit {
         },
         map: this.map,
         icon: this.image,
+        // animation: google.maps.Animation.BOUNCE
         });
         setTimeout(() => {
           this.marker.setMap(null);
-          // marker.setAnimation(null);
-        }, 2000);
+          // this.marker.setAnimation(null);
+        }, 900);
       });
-
-
-
-    }, 3000);
+    }, 1000);
  }
 
 
