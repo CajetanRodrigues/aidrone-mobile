@@ -1,11 +1,28 @@
 # aidrone-mobile
 ---
-
-![alt text](https://static.temblor.net/wp-content/uploads/2017/01/drone.jpg)
-
+<img src="https://github.com/CajetanRodrigues/aidrone-mobile/blob/master/resources/splash.png" width="30%">
+<img src="https://github.com/CajetanRodrigues/aidrone-mobile/blob/master/resources/icon.png" width="30%">
 ---
 
 **An App which facilitates communication with the drone.**
+
+<img src="https://github.com/CajetanRodrigues/aidrone-mobile/blob/master/github_images/a-login.jpeg" width="30%">
+<img src="https://github.com/CajetanRodrigues/aidrone-mobile/blob/master/github_images/a-signup.jpeg" width="30%">
+
+<img src="https://github.com/CajetanRodrigues/aidrone-mobile/blob/master/github_images/a-home.jpeg" width="30%">
+
+<img src="https://github.com/CajetanRodrigues/aidrone-mobile/blob/master/github_images/a-inventory.jpeg" width="30%">
+
+<img src="https://github.com/CajetanRodrigues/aidrone-mobile/blob/master/github_images/a-person-drone.jpeg" width="30%">
+
+<img src="https://github.com/CajetanRodrigues/aidrone-mobile/blob/master/github_images/a-track.jpeg" width="30%">
+<img src="https://github.com/CajetanRodrigues/aidrone-mobile/blob/master/github_images/a-schedule.jpeg" width="30%">
+
+<img src="https://github.com/CajetanRodrigues/aidrone-mobile/blob/master/github_images/a-missions.jpeg" width="30%">
+<img src="https://github.com/CajetanRodrigues/aidrone-mobile/blob/master/github_images/a-maps.jpeg" width="30%">
+
+
+
 
 ---
 ## Installation guide
