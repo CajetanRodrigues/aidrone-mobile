@@ -1,10 +1,11 @@
-# aidrone-mobile
----
+# AI Drone
+###  Deliver Medical Supplies at a faster pace
 <img src="https://github.com/CajetanRodrigues/aidrone-mobile/blob/master/resources/splash.png" width="30%">
 <img src="https://github.com/CajetanRodrigues/aidrone-mobile/blob/master/resources/icon.png" width="30%">
+
 ---
 
-**An App which facilitates communication with the drone.**
+## An App which facilitates communication with the drone.
 
 <img src="https://github.com/CajetanRodrigues/aidrone-mobile/blob/master/github_images/a-login.jpeg" width="30%">
 <img src="https://github.com/CajetanRodrigues/aidrone-mobile/blob/master/github_images/a-signup.jpeg" width="30%">
@@ -89,10 +90,6 @@ The App will automatically trigger the default browser and spin up the app.
 **Ionic Components**
 `https://ionicframework.com/docs/components`
 
-### Screen Shots
-
-![1](https://user-images.githubusercontent.com/37682760/64069541-f9bba480-cc68-11e9-903e-bc5ad1123183.jpeg)
-![2](https://user-images.githubusercontent.com/37682760/64069542-f9bba480-cc68-11e9-96fe-85249ce04e59.jpeg)
 
 
 
