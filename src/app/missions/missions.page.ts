@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./missions.page.scss'],
 })
 export class MissionsPage implements OnInit {
-  missions: any[];
+  missions: any[] = [];
   constructor(private missionService: MissionService,
               public modalController: ModalController,
               private router: Router) { }

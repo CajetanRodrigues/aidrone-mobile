@@ -9,6 +9,9 @@
     </ion-toolbar>
 </ion-header>
 <ion-content>
+    <div class="spin" *ngIf="missions.length==0">
+        <ion-spinner color="primary" name="bubbles"></ion-spinner>
+    </div>
     <ion-card *ngFor="let mission of missions">
         <ion-item>
             <ion-icon name="pin" slot="start"></ion-icon>
@@ -28,8 +31,5 @@
             <ion-button color="secondary" (click)="goToMap(mission._id)" expand="full" slot="end">View on Google Map</ion-button>
 
         </ion-card-content>
-    </ion-card>
-    <ion-card *ngIf="!missions">
-        <img width="100%" height="50%" src="../../assets/gif/404.gif" alt="Description" />
     </ion-card>
 </ion-content>

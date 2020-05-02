@@ -19,6 +19,9 @@
     <ion-progress-bar color="primary" type="indeterminate" reversed="true"></ion-progress-bar>
 </div>
 <ion-content>
+    <div class="spin" *ngIf="assignList.length==0">
+        <ion-spinner color="primary" name="bubbles"></ion-spinner>
+    </div>
 
     <ion-card>
         <ion-card-content>

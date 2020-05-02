@@ -16,6 +16,6 @@ export class InventoryService {
 
   fetchInventoryItems(): Observable<any> {
     return this.http.get<any>
-      ('http://35.154.138.70/fetchinventory', httpOptions);
+      ('https://aidrone-1250389064.ap-south-1.elb.amazonaws.com/fetchinventory', httpOptions);
   }
 }

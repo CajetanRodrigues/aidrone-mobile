@@ -54,7 +54,7 @@ export class DroneService {
   }
   getDrones() {
     return this.http.get<any>
-      ('http://35.154.138:70/getdrones', httpOptions);
+      ('https://aidrone-1250389064.ap-south-1.elb.amazonaws.com/getdrones', httpOptions);
   }
   readCoordinatesByMissionId(missionId: string) {
     return this.http.post<any>

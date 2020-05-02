@@ -166,6 +166,7 @@ export class SchedulePage implements OnInit, DoCheck {
     .subscribe((data) => {
       console.log('Order created successfully and id is ' + data.orderId);
       this.appService.orderId = data.orderId;
+      localStorage.setItem('orderId', data.orderId);
     });
   }
 

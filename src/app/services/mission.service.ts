@@ -19,7 +19,7 @@ export class MissionService {
               private droneService: DroneService) { }
   fetchOrders(): Observable<any> {
     return this.http.get<any>
-      ('http://127.0.0.1:5000/fetchorders',
+      ('https://aidrone-1250389064.ap-south-1.elb.amazonaws.com/fetchorders',
        httpOptions);
   }
   fetchMissions(): Observable<any> {
@@ -37,20 +37,20 @@ export class MissionService {
   }
   fetchInventoryItems(): Observable<any> {
     return this.http.get<any>
-      ('http://35.154.138.70/fetchinventory', httpOptions);
+      ('https://aidrone-1250389064.ap-south-1.elb.amazonaws.com/fetchinventory', httpOptions);
   }
   createOrder(order: any): Observable<any> {
     console.log('this is my requets here');
     console.log({ AssignedDrones: order });
     return this.http.post<any>
-      ('http://35.154.138.70/addorder', { AssignedDrones: order }, httpOptions);
+      ('https://aidrone-1250389064.ap-south-1.elb.amazonaws.com/addorder', { AssignedDrones: order }, httpOptions);
   }
   createMission(orderid: any): Observable<any> {
 
     return this.http.post<any>
       ('https://aidrone-1250389064.ap-south-1.elb.amazonaws.com/createmission',
       {
-        order_id: orderid,
+        order_id: localStorage.getItem('orderId'),
         from: this.appService.from,
         to: this.appService.to,
         src_lat: this.droneService.gps.src.lat,

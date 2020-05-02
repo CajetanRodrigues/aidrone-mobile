@@ -11,7 +11,8 @@ import { AppService } from '../app.service';
 })
 export class TrackPage implements OnInit {
   showProgress = true;
-
+  from = '';
+  to = '';
   constructor(private router: Router,
               public modalController: ModalController,
               private appService: AppService) { }
@@ -20,6 +21,9 @@ export class TrackPage implements OnInit {
     setTimeout(() => {
       this.showProgress = false;
     }, 1200);
+    this.from = this.appService.from;
+    this.to = this.appService.to;
+
   }
   goToMap() {
     this.router.navigateByUrl('map/' + this.appService.missionId);

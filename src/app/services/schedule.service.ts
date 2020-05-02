@@ -17,6 +17,6 @@ export class ScheduleService {
   assignDronesToInventoryItems(inventoryList: Inventory[]): Observable<any> {
     console.log({ product: inventoryList });
     return this.http.post<any>
-      ('http://35.154.138.70/assigndrone', { product: inventoryList }, httpOptions);
+      ('https://aidrone-1250389064.ap-south-1.elb.amazonaws.com/assigndrone', { product: inventoryList }, httpOptions);
   }
 }

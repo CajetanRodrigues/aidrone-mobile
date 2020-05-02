@@ -15,6 +15,9 @@
 <div *ngIf="showProgress">
     <ion-progress-bar color="primary" type="indeterminate" reversed="true"></ion-progress-bar>
 </div>
+    <div class="spin" *ngIf="inventoryList.length==0">
+        <ion-spinner color="primary" name="bubbles"></ion-spinner>
+    </div>
 
 <ion-content>
     <ion-card *ngFor="let inventory of inventoryList">
@@ -52,8 +55,6 @@
             </ion-chip>
         </ion-card-content>
     </ion-card>
-    <ion-card *ngIf="inventoryList.length==0">
-        <img width="100%" height="50%" src="../../assets/gif/404.gif" alt="Description" />
-    </ion-card>
+
 
 </ion-content>

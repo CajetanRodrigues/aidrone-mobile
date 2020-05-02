@@ -17,7 +17,7 @@ export class UserService {
 
   onSignup(Name: string, Email: string, Password: string): Observable<any> {
     return this.http.post<any>
-      ('http://127.0.0.1:5000/signup',
+      ('https://aidrone-1250389064.ap-south-1.elb.amazonaws.com/signup',
         {
           name: Name,
           email: Email,
