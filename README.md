@@ -32,7 +32,7 @@ _Note: See [How to Prevent Permissions Errors](https://docs.npmjs.com/getting-st
 
 | Login  | Sign Up |
 | -----------------| -----|
-| <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/screenshots/login.PNG" width="250"> | <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/src/screenshots/sign-up.PNG" width="250"> 
+| <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/screenshots/login.PNG" width="250"> | <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/screenshots/sign-up.PNG" width="250"> 
 
 
 ### Personal Info Screens
