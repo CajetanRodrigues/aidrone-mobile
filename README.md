@@ -1,102 +1,80 @@
-# AI Drone
-###  Deliver Medical Supplies at a faster pace
-<img src="https://github.com/CajetanRodrigues/aidrone-mobile/blob/master/resources/splash.png" width="30%">
-<img src="https://github.com/CajetanRodrigues/aidrone-mobile/blob/master/resources/icon.png" width="30%">
+# Fit Meal
+### Smartly plan your next meal routine !
 
----
+This application accomplishes to deliver the best food routines by taking into consideration the user's BMI, Activity Level, Body Type.
 
-## An App which facilitates communication with the drone.
+<img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/resources/icon.png" width="150">
 
-<img src="https://github.com/CajetanRodrigues/aidrone-mobile/blob/master/github_images/a-login.jpeg" width="30%">
-<img src="https://github.com/CajetanRodrigues/aidrone-mobile/blob/master/github_images/a-signup.jpeg" width="30%">
+ **Download APK** :  https://github.com/CajetanRodrigues/aidrone-android/APK_FILE/ai-drone.apk
 
-<img src="https://github.com/CajetanRodrigues/aidrone-mobile/blob/master/github_images/a-home.jpeg" width="30%">
-
-<img src="https://github.com/CajetanRodrigues/aidrone-mobile/blob/master/github_images/a-inventory.jpeg" width="30%">
-
-<img src="https://github.com/CajetanRodrigues/aidrone-mobile/blob/master/github_images/a-person-drone.jpeg" width="30%">
-
-<img src="https://github.com/CajetanRodrigues/aidrone-mobile/blob/master/github_images/a-track.jpeg" width="30%">
-<img src="https://github.com/CajetanRodrigues/aidrone-mobile/blob/master/github_images/a-schedule.jpeg" width="30%">
-
-<img src="https://github.com/CajetanRodrigues/aidrone-mobile/blob/master/github_images/a-missions.jpeg" width="30%">
-<img src="https://github.com/CajetanRodrigues/aidrone-mobile/blob/master/github_images/a-maps.jpeg" width="30%">
+## Table of Contents
+- [Getting Started](#getting-started)
+- [App Preview](#app-preview)
+- [Deploying](#deploying)
+  - [Android](#android)
+  - [iOS](#ios)
 
 
+## Getting Started
+
+* [Download the installer](https://nodejs.org/) for Node LTS.
+* Install the ionic CLI globally: `npm install -g ionic`
+* Clone this repository: `https://github.com/CajetanRodrigues/covid-tracker.git`.
+* Run `npm install` from the project root.
+* Run `ionic serve` in a terminal from the project root.
+* You are now free to explore!. :tada:
+
+_Note: See [How to Prevent Permissions Errors](https://docs.npmjs.com/getting-started/fixing-npm-permissions) if you are running into issues when trying to install packages globally._
+
+## App Preview
+
+### Authentication Screens
+
+| Login  | Sign Up |
+| -----------------| -----|
+| <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/src/screenshots/login.PNG" width="250"> | <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/src/screenshots/sign-up.PNG" width="250"> 
 
 
----
-## Installation guide
----
+### Personal Info Screens
 
-### Prerequisites
----
+| Google AutoComplete  | Home |
+| -----------------| -----|
+| <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/src/screenshots/home.PNG" width="250"> | <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/src/screenshots/home1.PNG" width="250"> 
 
-**Install NodeJS** [Node Package Manager]
-`https://nodejs.org/en/download/`
+### Inventory & Schedule
 
-**Install Ionic Framework** [Mobile UI Framework]
-`npm install -g ionic`
+| Inventory List  | Schedule |
+| -----------------| -----|
+| <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/src/screenshots/inventory.PNG" width="250"> | <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/src/screenshots/schedule.PNG" width="250"> 
 
-**Install cordova** [For transpiling Typescript into Native Javascript code]
-`npm install -g cordova`
+### Progress & Tracking
 
-**Install Android Studio**
-`https://developer.android.com/studio`
+| Progress   | Track |
+| -----------------| -----|
+| <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/src/screenshots/in-progress.PNG" width="250"> | <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/src/screenshots/track.PNG" width="250"> 
 
-### Clone & Spin up the App
----
+### Live Tracking on Google Maps using GCP & Mission Status Page
 
-**Clone the repository**
-`https://github.com/CajetanRodrigues/aidrone-mobile.git`
+| Live Tracking (Google Maps)   | Mission Status |
+| -----------------| -----|
+| <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/src/screenshots/track.PNG" width="250"> | <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/src/screenshots/missions.PNG" width="250"> 
 
-**Install the dependencies using node package manager in the root of the app**
-`npm i`
+### Mission detail & drone status
 
-**Serve the app**
-`ionic serve`
-
-
-### Testing
----
-
-**Generate a build apk and test on mobile device  (Optional)**
-`ionic cordova build android --prod`
-
-The App will automatically trigger the default browser and spin up the app.
-
-### Deployment
-
-**Build a Cordova Native Project**
-`ionic cordova prepare android`
-
-**Make a Production Build**
-`ionic cordova build android --prod`
-
-**After this, Android Studio can handle the rest**
-
-`Go to Build -> Generate Signed Bundle/ APK -> Fill in the required details -> Generate`
+| Mission Detail   | Drone Status |
+| -----------------| -----|
+| <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/src/screenshots/missions-detail.PNG" width="250"> | <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/src/screenshots/drones.PNG" width="250"> 
 
 
-### Modules Integrated with App
----
+## Deploying
 
-**Ionic Icons Library**
-`https://ionicons.com/`
+### Android
 
-**Google Fonts**
-`https://fonts.google.com`
+1. Run `ionic cordova run android --prod`
 
-**Ionic Components**
-`https://ionicframework.com/docs/components`
+### iOS
 
-
-
-
-
-
-
-
+1. Run `ionic cordova run ios --prod`
 
 
 
