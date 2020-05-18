@@ -32,20 +32,20 @@ _Note: See [How to Prevent Permissions Errors](https://docs.npmjs.com/getting-st
 
 | Login  | Sign Up |
 | -----------------| -----|
-| <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/src/screenshots/login.PNG" width="250"> | <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/src/screenshots/sign-up.PNG" width="250"> 
+| <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/screenshots/login.PNG" width="250"> | <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/src/screenshots/sign-up.PNG" width="250"> 
 
 
 ### Personal Info Screens
 
 | Google AutoComplete  | Home |
 | -----------------| -----|
-| <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/src/screenshots/home.PNG" width="250"> | <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/src/screenshots/home1.PNG" width="250"> 
+| <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/screenshots/home.PNG" width="250"> | <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/screenshots/home1.PNG" width="250"> 
 
 ### Inventory & Schedule
 
 | Inventory List  | Schedule |
 | -----------------| -----|
-| <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/src/screenshots/inventory.PNG" width="250"> | <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/src/screenshots/schedule.PNG" width="250"> 
+| <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/screenshots/inventory.PNG" width="250"> | <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/screenshots/schedule.PNG" width="250"> 
 
 ### Progress & Tracking
 
@@ -57,13 +57,13 @@ _Note: See [How to Prevent Permissions Errors](https://docs.npmjs.com/getting-st
 
 | Live Tracking (Google Maps)   | Mission Status |
 | -----------------| -----|
-| <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/src/screenshots/track.PNG" width="250"> | <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/src/screenshots/missions.PNG" width="250"> 
+| <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/screenshots/track.PNG" width="250"> | <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/screenshots/missions.PNG" width="250"> 
 
 ### Mission detail & drone status
 
 | Mission Detail   | Drone Status |
 | -----------------| -----|
-| <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/src/screenshots/missions-detail.PNG" width="250"> | <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/src/screenshots/drones.PNG" width="250"> 
+| <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/screenshots/missions-detail.PNG" width="250"> | <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/screenshots/drones.PNG" width="250"> 
 
 
 ## Deploying
