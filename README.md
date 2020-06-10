@@ -1,7 +1,7 @@
-# Fit Meal
-### Smartly plan your next meal routine !
+# AI DRONE 
+### Smartly schedule drone missions with our UI interface !
 
-This application accomplishes to deliver the best food routines by taking into consideration the user's BMI, Activity Level, Body Type.
+This application accomplishes to deliver meds via drones using live map tracking, mission tracking and much more.
 
 <img src="https://github.com/CajetanRodrigues/aidrone-android/blob/master/resources/icon.png" width="150">
 
